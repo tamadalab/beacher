@@ -4,3 +4,6 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 public class Cli
+{
+  
+}
