@@ -20,6 +20,23 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.0.1-jre'
+    
+    implementation 'info.picocli:picocli:4.7.0'
+}
+
+jar {
+    manifest{
+        attributes(
+                "Main-Class": "example.App",
+                "Class-Path": configurations.compileClasspath.files.collect { it.getName() }.join(' ')
+        )
+    }
+}
+
+task copyFile(type: Copy){
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from configurations.compileClasspath
+    into "$buildDir/libs"
 }
 
 testing {
@@ -36,3 +53,5 @@ application {
     // Define the main class for the application.
     mainClass = 'example.App'
 }
+
+build.finalizedBy copyFile
