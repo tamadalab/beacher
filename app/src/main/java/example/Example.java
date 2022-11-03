@@ -1,11 +1,25 @@
 package src;
-//beatherのmain部分を作成します.
+/**
+ * beacherのmain部分を作成します.
+ */
+public class Options
+{
+    Option opts;
+    Path opts_definition;
+    Path opts_append_defs;
+    Format opts_format;
+    Option opts_dirs;
+    boolean opts_no_ignore;
+    Option opts_project_list;
+}
 
 public class Example extends Object
 {
-    public static void BuildTool(){
+    public static void BuildTool()
+    {
 
     }
+   
     public void open_impl()
     {
 
@@ -18,18 +32,35 @@ public class Example extends Object
     {
 
     }
-    public void extract_file_name()
+    public void extract_file_name(target)
     {
-
+        if some_name = target.file_name()
+        {
+            name.to_str()
+        }
+        else
+        {}
     }
-    public void find_build_tools_impl()
+    public void find_build_tools_impl(target, defs)
     {
-        
+        if(some_file_name = extract_file_name(target))
+        {
+            for(def : defs)
+            {
+                for(build_file : des.build_files)
+                {
+                    if(some_file_name == build_file)
+                    {
+                        return some_def.clone();
+                    }
+                }
+            }
+        }
     }
     public void find_build_tools(target, defs, no-ignore)
     {
-        Vector build_tools;
-        for()
+        List build_tools;
+        for(result : target)
         {
             if()
             {
@@ -53,7 +84,7 @@ public class Example extends Object
     public void perfrom(opts, dest)
     {
         defs = construct(opts_definition, opts_append_defs); //beacherのconstructへ
-        formatter;
+        formatter = formatter.build(opts_format);
         if opts.list_defs // があれば?
         {
             formatter.print_defs(dest, defs);
