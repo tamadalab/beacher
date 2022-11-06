@@ -12,25 +12,41 @@ public class Options
     boolean opts_no_ignore;
     Option opts_project_list;
 }
+public class BuildTools
+{
+    Path path; //PathBuff
+    BuildToolsDef def;
+
+    // BuildTool = new(path, def);  初期化
+}
 
 public class Example extends Object
-{
-    public static void BuildTool()
+{  
+    public void open_impl(file)
     {
-
+        if()
+        {}
+        else if()
+        {}
     }
-   
-    public void open_impl()
+    public void parse_project_list(list_file)
     {
-
+        f = open_impl(list_file);
+        List lines = List.new();
+        for(line in f.lines)
+        {
+            lines.push(line.unwrap()) // PathBuff::from
+        }
     }
-    public void parse_project_list()
+    public void parse_tagerts(opts_project_list, opts_dirs)
     {
-
-    }
-    public void parse_tagerts()
-    {
-
+        String some_x;
+        if some_x = opts_project_list
+        {
+            this.parse_project_list(some_x);
+        }
+        else
+        {}
     }
     public void extract_file_name(target)
     {
@@ -105,7 +121,7 @@ public class Example extends Object
     {
         opts; // List ?
         // if some_err = opts.validate()
-            System.out.println("%s", some_err)
+            System.out.println("%s", some_err);
         dest; // 
         this.perfrom(opts, dest);
     }
