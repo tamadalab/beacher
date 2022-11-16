@@ -4,27 +4,27 @@ import java.util.List;
 import java.util.ArrayList;
 import java.nio.file.Path;
 
-public class Beacher extends BuildToodDef
+public class Beacher extends BuildToolDef
 {
-    public List<BuildToodDef> merge_build_tools(List<BuildToodDef> first, List<BuildToodDef> second)
+    public List<BuildToolDef> merge_build_tools(List<BuildToolDef> first, List<BuildToolDef> second)
     {
-        List<BuildToodDef> result = new ArrayList<BuildToodDef>();
-        for (BuildToodDef item : first) result.add(item);
-        for (BuildToodDef item : second) result.add(item);
+        List<BuildToolDef> result = new ArrayList<BuildToolDef>();
+        for (BuildToolDef item : first) result.add(item);
+        for (BuildToolDef item : second) result.add(item);
 
         return result;
     }
 
-    public List<BuildToodDef> Construct(Path defs,Path append)
+    public List<BuildToolDef> Construct(Path defs,Path append)
     {
-        List<BuildToodDef> def = new ArrayList<BuildToodDef>();
+        List<BuildToolDef> def = new ArrayList<BuildToolDef>();
         if(!(defs==null)) def = parse(defs);
         else def = parse_from_asset();
 
-        List<BuildToodDef> result = new ArrayList<BuildToodDef>();
+        List<BuildToolDef> result = new ArrayList<BuildToolDef>();
         if (!(defs==null))
         {
-            List<BuildToodDef> additional_defs = parse(append);
+            List<BuildToolDef> additional_defs = parse(append);
             result = merge_build_tools(def, additional_defs);
         }
         else
