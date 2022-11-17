@@ -2,6 +2,9 @@ package src;
 /**
  * beacherのmain部分を作成します.
  */
+
+import static BuildToolsDef.*;
+
 public class Options
 {
     Option opts;
@@ -12,24 +15,25 @@ public class Options
     boolean opts_no_ignore;
     Option opts_project_list;
 }
-public class BuildTools
+public class BuildTool
 {
     Path path; //PathBuff
     BuildToolsDef def;
 
-    // BuildTool = new(path, def);  初期化
+    BuildTool buildtool = new BuildTool(path, def); // 初期化
 }
 
 public class Example extends Object
 {  
-    public void open_impl(file)
+    public void open_impl(String file) throws IOEexception
     {
-        if()
-        {}
-        else if()
-        {}
+        if(Object.equals(file, "_"))
+        {
+            return new BufferedReader(new InputStringReader(System.in));
+        }
+        return new BufferedReader(new FileReader(file));
     }
-    public void parse_project_list(list_file)
+    public void parse_project_list(String list_file)
     {
         f = open_impl(list_file);
         List lines = List.new();
@@ -45,8 +49,7 @@ public class Example extends Object
         {
             this.parse_project_list(some_x);
         }
-        else
-        {}
+        return opts_dirs;
     }
     public void extract_file_name(target)
     {
@@ -117,7 +120,7 @@ public class Example extends Object
         } 
 
     }
-    public static void main(String... args)
+    public static void main(String... arguments)
     {
         opts; // List ?
         // if some_err = opts.validate()
