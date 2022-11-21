@@ -2,7 +2,10 @@ package example;
 
 import java.util.List;
 import java.util.ArrayList;
+
 import java.nio.file.Path;
+import java.io.File;
+import java.io.IOException;
 
 public class Beacher extends BuildToolDef
 {
@@ -15,7 +18,7 @@ public class Beacher extends BuildToolDef
         return result;
     }
 
-    public List<BuildToolDef> Construct(Path defs,Path append)
+    public List<BuildToolDef> Construct(Path defs,Path append) throws IOException
     {
         List<BuildToolDef> def = new ArrayList<BuildToolDef>();
         if(!(defs==null)) def = parse(defs);
@@ -34,6 +37,5 @@ public class Beacher extends BuildToolDef
 
         return result;
     }
-
 
 }
