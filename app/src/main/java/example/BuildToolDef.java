@@ -23,7 +23,7 @@ public class BuildToolDef
     public List<BuildToolDef> parse(Path path) throws IOException
     {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(new File(path.toString()), new TypeReference<List<BuildToolDef>>());
+        return objectMapper.readValue(new File(path.toString()), new TypeReference<List<BuildToolDef>>(){});
     }
 
     public List<BuildToolDef> parse_from_asset()
