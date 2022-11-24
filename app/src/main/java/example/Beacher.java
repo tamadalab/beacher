@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class Beacher extends BuildToolDef
 {
-    public List<BuildToolDef> merge_build_tools(List<BuildToolDef> first, List<BuildToolDef> second)
+    public List<BuildToolDef> mergeBuildTools(List<BuildToolDef> first, List<BuildToolDef> second)
     {
         List<BuildToolDef> result = new ArrayList<BuildToolDef>();
         for (BuildToolDef item : first) result.add(item);
@@ -18,17 +18,17 @@ public class Beacher extends BuildToolDef
         return result;
     }
 
-    public List<BuildToolDef> Construct(Path defs,Path append) throws IOException
+    public List<BuildToolDef> construct(Path defs,Path append) throws IOException
     {
         List<BuildToolDef> def = new ArrayList<BuildToolDef>();
         if(!(defs==null)) def = parse(defs);
-        else def = parse_from_asset();
+        else def = parseFromAsset();
 
         List<BuildToolDef> result = new ArrayList<BuildToolDef>();
         if (!(defs==null))
         {
             List<BuildToolDef> additional_defs = parse(append);
-            result = merge_build_tools(def, additional_defs);
+            result = mergeBuildTools(def, additional_defs);
         }
         else
         {

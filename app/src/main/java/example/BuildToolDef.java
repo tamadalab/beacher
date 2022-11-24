@@ -16,7 +16,7 @@ public class BuildToolDef
     public String name;
 
     @JsonProperty("build-files")
-    public List<String> build_files;
+    public List<String> buildFiles;
 
     public String url;
 
@@ -26,7 +26,7 @@ public class BuildToolDef
         return objectMapper.readValue(new File(path.toString()), new TypeReference<List<BuildToolDef>>(){});
     }
 
-    public List<BuildToolDef> parse_from_asset()
+    public List<BuildToolDef> parseFromAsset()
     {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(new File("buildtools.json"),new TypeReference<List<BuildToolDef>>(){});
