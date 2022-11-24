@@ -3,18 +3,13 @@
  */
 package example;
 
-import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Vector;
 import java.util.List;
 import java.lang.Runnable;
-import example.App;
 
 @Command(name = "beacher", mixinStandardHelpOptions = true, version = "beacher 0.1",
          description = "A tool for detecting build tools of the projects")

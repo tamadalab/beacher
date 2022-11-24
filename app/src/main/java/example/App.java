@@ -4,14 +4,11 @@
 package example;
 
 import picocli.CommandLine;
-//import java.lang.Runnable;
-import example.Cli;
-import static example.Format.*;
 
 
 public class App{
     public void run(Cli c){
-        if(c.format == Json){
+        if(c.format == Format.Json){
             System.out.println("OK");
         }
     }
