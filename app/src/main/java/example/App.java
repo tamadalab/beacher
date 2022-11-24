@@ -3,12 +3,12 @@
  */
 package example;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import picocli.CommandLine;
+import example.Cli;
 
+public class App {
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        int exitCode = new CommandLine(new Cli()).execute(args);
+        System.exit(exitCode);
     }
 }
