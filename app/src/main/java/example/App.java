@@ -10,8 +10,7 @@ import static example.Format.*;
 
 
 public class App{
-    public static void run(){
-        Cli c = new Cli();
+    public void run(Cli c){
         if(c.format == Json){
             System.out.println("OK");
         }

@@ -14,7 +14,6 @@ import java.nio.file.Path;
 import java.util.Vector;
 import java.util.List;
 import java.lang.Runnable;
-import static example.Format.*;
 import example.App;
 
 @Command(name = "beacher", mixinStandardHelpOptions = true, version = "beacher 0.1",
@@ -30,8 +29,8 @@ public class Cli implements Runnable{
     @Option(names = {"-d","--definition"}, paramLabel = "DEFS_JSON", description = "Specify the definition of the build tools.")
     Path definition;
 
-    @Option(names = {"-f","--format"}, paramLabel = "FORMAT", description = "Specify the output format")
-    static Format format = Default;
+    @Option(names = {"-f","--format"}, paramLabel = "FORMAT", description = "Specify the output format [default: Default] [possible values: Default, Json, Xml, Yaml]")
+    Format format = Format.Default;
 
     @Option(names = {"-L","--list-defs"}, description = "Print the build tools' definition list")
     boolean list_defs;
@@ -43,14 +42,14 @@ public class Cli implements Runnable{
     List<Path> dirs;
 
     public void run(){
-        App.run();
+        new App().run(this);
     }
 
     public void validate() throws BothTargetSpecified, NoProjectSpecified{
-        if(this.project_list != null && !this.dirs.isEmpty()){
+        if(project_list != null && !dirs.isEmpty()){
             throw new BothTargetSpecified();
         }
-        else if(!this.list_defs && this.project_list == null && this.dirs.isEmpty()){
+        else if(!list_defs && project_list == null && dirs.isEmpty()){
             throw new NoProjectSpecified();
         }
         return;
