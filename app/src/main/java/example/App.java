@@ -4,9 +4,18 @@
 package example;
 
 import picocli.CommandLine;
+//import java.lang.Runnable;
 import example.Cli;
+import static example.Format.*;
 
-public class App {
+
+public class App{
+    public static void run(){
+        Cli c = new Cli();
+        if(c.format == Json){
+            System.out.println("OK");
+        }
+    }
     public static void main(String[] args) {
         int exitCode = new CommandLine(new Cli()).execute(args);
         System.exit(exitCode);

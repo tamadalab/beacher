@@ -3,4 +3,4 @@
  */
 package example;
 
-public enum Format{ JsonFormatter, DefaultFormatter, XmlFormatter, YamlFormatter}
+public enum Format{ Json, Default, Xml, Yaml}
