@@ -1,6 +1,6 @@
 /*
  * Formatを列挙しています。
  */
-package example;
+package ecom.github.tamadalab.beacher;
 
 public enum Format{ Json, Default, Xml, Yaml}

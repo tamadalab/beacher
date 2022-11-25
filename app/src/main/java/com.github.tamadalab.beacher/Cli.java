@@ -1,7 +1,7 @@
 /*
  * beacherのコマンドラインのオプションのためのソースコードです。
  */
-package example;
+package com.github.tamadalab.beacher;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;

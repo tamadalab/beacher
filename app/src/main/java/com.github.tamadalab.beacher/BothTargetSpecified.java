@@ -1,7 +1,7 @@
 /*
  * 例外処理をしています。
  */
-package example;
+package com.github.tamadalab.beacher;
 
 public class BothTargetSpecified extends Exception{
     public BothTargetSpecified(){
