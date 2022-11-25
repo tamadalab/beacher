@@ -1,4 +1,4 @@
-package example;
+package com.github.tamadalab.beacher;
 
 import java.util.List;
 import java.util.ArrayList;
