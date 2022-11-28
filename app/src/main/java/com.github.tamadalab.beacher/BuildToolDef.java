@@ -29,6 +29,6 @@ public class BuildToolDef
     public List<BuildToolDef> parseFromAsset()
     {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(new File("buildtools.json"),new TypeReference<List<BuildToolDef>>(){});
+        return objectMapper.readValue(new File("defs/buildtools.json"),new TypeReference<List<BuildToolDef>>(){});
     }
 }
