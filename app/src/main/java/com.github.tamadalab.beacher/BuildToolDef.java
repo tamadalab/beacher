@@ -24,8 +24,17 @@ public class BuildToolDef
 
     public List<BuildToolDef> parse(Path path)
     {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(new File(path.toString()), new TypeReference<List<BuildToolDef>>(){});
+        try
+        {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(new File(path.toString()), new TypeReference<List<BuildToolDef>>(){});
+        }
+        catch (IOException anException)
+        {
+            anException.printStackTrace();
+            return new ArrayList<>();
+        }
+
     }
 
     public List<BuildToolDef> parseFromAsset()
@@ -40,7 +49,11 @@ public class BuildToolDef
             System.out.println("buildtools.json: file not found");
             return new ArrayList<>();
         }
-        catch (IOException anException) { anException.printStackTrace(); }
+        catch (IOException anException)
+        {
+            anException.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
 }
