@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import java.nio.file.Path;
 import java.io.File;
-import java.io.IOException;
 
 public class Beacher extends BuildToolDef
 {

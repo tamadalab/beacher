@@ -1,9 +1,6 @@
 package com.github.tamadalab.beacher;
 
 import java.util.List;
-
-import javax.imageio.II¥OException;
-
 import java.util.ArrayList;
 
 import java.nio.file.Path;
