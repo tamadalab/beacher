@@ -23,7 +23,7 @@ public class Beacher extends BuildToolDef
         return result;
     }
 
-    public List<BuildToolDef> construct(Path defs,Path append) throws IOException
+    public List<BuildToolDef> construct(Path defs,Path append)
     {
         List<BuildToolDef> def = new ArrayList<BuildToolDef>();
         if(defs!=null)
