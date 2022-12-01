@@ -3,6 +3,9 @@
  */
 package example;
 
+import java.nio.file.Path;
+import example.BuildToolsDef;
+
 public class BuildTool {
     Path path; //PathBuff
     BuildToolDef def;
