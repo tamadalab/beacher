@@ -37,7 +37,7 @@ public class Cli implements Runnable{
     List<Path> dirs;
 
     public void run(){
-        new App().run(this);
+        new Example().run(this);
     }
 
     public void validate() throws BothTargetSpecified, NoProjectSpecified{
