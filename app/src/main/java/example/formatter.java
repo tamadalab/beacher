@@ -1,13 +1,12 @@
 package Beacher;
 
-import java.awt;
-import java.util.function.UnaryOperator;
 import java.util.ArrayList;
 import java.util.List;
+import Cil.java;
+import bteacher.java;
+import java.nio.file.Path;
 
-import javafx.scene.image.Image;
-
-public interface Formatter {
+public interface formatter {
 
     List<String> DefaultFormatter = new ArrayList<>();
     List<String> JsonFormatter = new ArrayList<>();
@@ -18,32 +17,35 @@ public interface Formatter {
     List<BuildTooldef> def = new ArrayList<>();
     // List <BuildTooldefs> defs = new ArrayList<>();
 
-    public String print_header;
-    public String print_defs_header;
-    public String print_footer;
-    public String print_defs_footer;
-    public String print_def;
-    public String print_each;
-    public int item;
-    public Path base;// インスタンスいる
+    /*
+     * public String print_header;
+     * public String print_defs_header;
+     * public String print_footer;
+     * public String print_defs_footer;
+     * public String print_def;
+     * public String print_each;
+     */
+    /* public int item = 0;// インスタンスいる */
 
-    default String Item() {
-        if (item == 0) {
-            item = 0;
-        } else {
-            item = 1;
-        }
-        return print_each;
-    }
+    /*
+     * default String Item() {
+     * if (item == 0) {
+     * item = 0;
+     * } else {
+     * item = 1;
+     * }
+     * return print_each;
+     * }
+     */
 
-    default String Match() {
-        if (Format == Json) {
+    default Formatter build(Format aFormat) {
+        if (aFormat == Format.Json) {
             return JsonFormatter;
-        } else if (Format == Default) {
+        } else if (aFormat == Format.Default) {
             return DefaultFormatter;
-        } else if (Format == Xml) {
+        } else if (aFormat == Format.Xml) {
             return XmlFormatter;
-        } else if (Format == Yaml) {
+        } else if (aFormat == Format.Yaml) {
             return YamlFormatter;
         }
     }
@@ -51,23 +53,23 @@ public interface Formatter {
 
 class DefaultFormatter implements Formatter {
 
-    public void print_header(Path base, BuildTooldef def) {
-        System.out.println("%s"this.base);// thisのところにもらってきたクラス名を入れると動くはず
+    public void print_header(BuildTooldef def, Path base) {
+        System.out.printf("%s%n", base.toString());// thisのところにもらってきたクラス名を入れると動くはず
     }
 
-    public void print_each(Path base, BuildTooldef def) {
-            System.out.println("%s:" this.base.display, this.def.name);//いーち
-        }
+    public void print_each(Path base, BuildTool result) {
+        System.out.printf("%s: %s%n", base.toString(), result.def.name);// いーち
+    }
 
-    public void print_def(Path base, BuildTooldef def) {
-            System.out.println("%s: %s" this.def.name, this.def.build_files.join(","));//def
-        }
+    public void print_def(Path base, BuildToolDef def) {
+        System.out.printf("%s: %s%n", def.name, def.build_files.join(","));// def
+    }
 }
 
 class JsonFormatter implements Formatter {
 
     public void print_header(Path base) {
-        System.out.println("base:%s,build-tools:[", base.display()).unwrap();// header
+        System.out.printf("base:%s,build-tools:[%n", base.toString());// header
     }
 
     public void print_footer() {
@@ -86,16 +88,17 @@ class JsonFormatter implements Formatter {
 class XmlFormatter implements Formatter {
     public void print_header(Path base) {
         System.out.println("<?xml version=\"1.0\"?>");// header
-        System.out.println("<build-tools><base>%s</base>", base.display);
+        System.out.printf("<build-tools><base>%s</base>%n", base.toString());
     }
 
     public void print_footer() {
         System.out.println("</build-tools>");// footer
     }
 
-    public void print_each(BuildTooldef def){
-             System.out.println("<build-tool><file-path>%s</file-path><tool-name>%s</tool-name></build-tool>"result.path.display(),def.name);//each
-        }
+    public void print_each(BuildTool result, BuildToolDef def) {
+        System.out.println("<build-tool><file-path>%s</file-path><tool-name>%s</tool-name></build-tool>",
+                result.path.toString, def.name);// each
+    }
 
     public void def_header() {
         System.out.println("<?xml version=\"1.0\"?>");// def_header
@@ -106,7 +109,7 @@ class XmlFormatter implements Formatter {
         System.out.println("</build-tool-defs>");// def_fotter
     }
 
-    public void print_def(BuildTooldef def) {
+    public void print_def(BuildToolDef def) {
         System.out.println("<build-tool-def><name>%s</name><url>%s</url><build-files>", def.name, def.url);// print_def
     }
 }
@@ -114,19 +117,19 @@ class XmlFormatter implements Formatter {
 class YamlFormatter implements Formatter {
 
     public void print_header(Path base) {
-        System.out.println("base: %s", base.display);// print_header
+        System.out.printf("base: %s%n", base.toString());// print_header
     }
 
-    public void print_each(Path base, BuildTooldef def) {
-        System.out.println("  - file-path: %s", result.path.display());// print_each
-        System.out.println("    tool-name: %s", result.def.name);
+    public void print_each(Path base, BuildToolDef def, BuildTool result) {
+        System.out.println("  - file-path: %s", result.path.toString());// print_each
+        System.out.println("    tool-name: %s", def.name);
     }
 
     public void print_def_header() {
         System.out.println("build-tools-defs");// print_def_header
     }
 
-    public void print_def(BuildTooldef def) {
+    public void print_def(BuildToolDef def) {
         System.out.println("  - name: %s", def.name);// print_def
         System.out.println("    url: %s", def.url);
         System.out.println("    file-names:");
