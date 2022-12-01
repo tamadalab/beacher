@@ -2,11 +2,9 @@ package Beacher;
 
 import java.util.ArrayList;
 import java.util.List;
-import Cil.java;
-import bteacher.java;
 import java.nio.file.Path;
 
-public interface formatter {
+public interface Formatter {
 
     List<String> DefaultFormatter = new ArrayList<>();
     List<String> JsonFormatter = new ArrayList<>();
@@ -18,12 +16,12 @@ public interface formatter {
     // List <BuildTooldefs> defs = new ArrayList<>();
 
     /*
-     * public String print_header;
-     * public String print_defs_header;
-     * public String print_footer;
-     * public String print_defs_footer;
-     * public String print_def;
-     * public String print_each;
+     * public String printHeader;
+     * public String printDefsHeader;
+     * public String printFooter;
+     * public String printDefsFooter;
+     * public String printDef;
+     * public String printEach;
      */
     /* public int item = 0;// インスタンスいる */
 
@@ -34,7 +32,7 @@ public interface formatter {
      * } else {
      * item = 1;
      * }
-     * return print_each;
+     * return printEach;
      * }
      */
 
@@ -53,90 +51,90 @@ public interface formatter {
 
 class DefaultFormatter implements Formatter {
 
-    public void print_header(BuildTooldef def, Path base) {
+    public void printHeader(BuildTooldef def, Path base) {
         System.out.printf("%s%n", base.toString());// thisのところにもらってきたクラス名を入れると動くはず
     }
 
-    public void print_each(Path base, BuildTool result) {
+    public void printEach(Path base, BuildTool result) {
         System.out.printf("%s: %s%n", base.toString(), result.def.name);// いーち
     }
 
-    public void print_def(Path base, BuildToolDef def) {
+    public void printDef(Path base, BuildToolDef def) {
         System.out.printf("%s: %s%n", def.name, def.build_files.join(","));// def
     }
 }
 
 class JsonFormatter implements Formatter {
 
-    public void print_header(Path base) {
+    public void printHeader(Path base) {
         System.out.printf("base:%s,build-tools:[%n", base.toString());// header
     }
 
-    public void print_footer() {
+    public void printFooter() {
         System.out.println("]}}");// footer
     }
 
-    public void print_def_header() {
-        System.out.println("[");// def_header
+    public void printDefHeader() {
+        System.out.println("[");// defHeader
     }
 
-    public void print_def_footer() {
-        System.out.println("]");// def_footer
+    public void printDefFooter() {
+        System.out.println("]");// defFooter
     }
 }
 
 class XmlFormatter implements Formatter {
-    public void print_header(Path base) {
+    public void printHeader(Path base) {
         System.out.println("<?xml version=\"1.0\"?>");// header
         System.out.printf("<build-tools><base>%s</base>%n", base.toString());
     }
 
-    public void print_footer() {
+    public void printFooter() {
         System.out.println("</build-tools>");// footer
     }
 
-    public void print_each(BuildTool result, BuildToolDef def) {
+    public void printEach(BuildTool result, BuildToolDef def) {
         System.out.println("<build-tool><file-path>%s</file-path><tool-name>%s</tool-name></build-tool>",
                 result.path.toString, def.name);// each
     }
 
-    public void def_header() {
-        System.out.println("<?xml version=\"1.0\"?>");// def_header
+    public void defHeader() {
+        System.out.println("<?xml version=\"1.0\"?>");// defHeader
         System.out.println("<build-tool-defs>");
     }
 
-    public void def_footer() {
+    public void defFooter() {
         System.out.println("</build-tool-defs>");// def_fotter
     }
 
-    public void print_def(BuildToolDef def) {
-        System.out.println("<build-tool-def><name>%s</name><url>%s</url><build-files>", def.name, def.url);// print_def
+    public void printDef(BuildToolDef def) {
+        System.out.println("<build-tool-def><name>%s</name><url>%s</url><build-files>", def.name, def.url);// printDef
     }
 }
 
 class YamlFormatter implements Formatter {
 
-    public void print_header(Path base) {
-        System.out.printf("base: %s%n", base.toString());// print_header
+    public void printHeader(Path base) {
+        System.out.printf("base: %s%n", base.toString());// printHeader
     }
 
-    public void print_each(Path base, BuildToolDef def, BuildTool result) {
-        System.out.println("  - file-path: %s", result.path.toString());// print_each
+    public void printEach(Path base, BuildToolDef def, BuildTool result) {
+        System.out.println("  - file-path: %s", result.path.toString());// printEach
         System.out.println("    tool-name: %s", def.name);
     }
 
-    public void print_def_header() {
-        System.out.println("build-tools-defs");// print_def_header
+    public void printDefHeader() {
+        System.out.println("build-tools-defs");// printDefHeader
     }
 
-    public void print_def(BuildToolDef def) {
-        System.out.println("  - name: %s", def.name);// print_def
+    public void printDef(BuildToolDef def) {
+        System.out.println("  - name: %s", def.name);// printDef
         System.out.println("    url: %s", def.url);
         System.out.println("    file-names:");
         // ここからeachのやつ使う
     }
 
-    public void print_file_name() {
+    public void printFileName() {
         int index;
         str file_name;
         if (index == 0) {
@@ -158,7 +156,7 @@ class YamlFormatter implements Formatter {
          * }else{
          * item = 1;
          * }
-         * return print_each;
+         * return printEach;
          * }
          */
     }
