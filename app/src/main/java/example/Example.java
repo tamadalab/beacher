@@ -19,18 +19,6 @@ import example.Cli;
 import static example.Format.*;
 
 
-// public class BuildTool
-// {
-//     Path path; //PathBuff
-//     BuildToolDef def;
-
-//     public BuildTool(Path path, BuildToolDef def)
-//     {
-//         this.path = path;
-//         this.def = def;
-//     }
-// }
-
 public class Example extends Object
 {  
     public BufferedReader openImpl(String file) throws IOEexception 
