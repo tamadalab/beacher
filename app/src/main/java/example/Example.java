@@ -15,12 +15,14 @@ import java.io.IOException;
 import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Formatter;
+// import java.util.logging.Formatter;
 import java.util.Objects;
 
 import example.BuildTool;
-import example.BuildToolsDef;
+import example.Beacher;
+import example.BuildToolDef;
 import example.Cli;
+import example.Formatter;
 import example.ProjectNotFound;
 import picocli.CommandLine;
 
@@ -71,7 +73,7 @@ public class Example extends Object
         {
             for(BuildToolDef def : defs)
             {
-                for(String buildfile : def.build_files)
+                for(String buildfile : def.buildFiles)
                 {
                     if(extractFileName(target) == buildfile)
                     {
@@ -133,9 +135,11 @@ public class Example extends Object
     }
     public Integer perform(Cli opts)
     {
-        List<BuildToolDef> defs = beacher.construct(opts.definition, opts.append_defs); //beacherのconstructへ
+        Beacher aBeacher;
+        List<BuildToolDef> defs = aBeacher.construct(opts.definition, opts.append_defs); //beacherのconstructへ
 
-        Formatter aFormatter = Formatter.build(opts.format);
+        Formatter aFormatter;
+        aFormatter = aFormatter.build(opts.format);
         if(opts.list_defs) // があれば
         {
             aFormatter.print_defs(defs);
