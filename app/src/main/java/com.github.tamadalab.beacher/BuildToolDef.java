@@ -1,6 +1,9 @@
 package com.github.tamadalab.beacher;
 
 import java.util.List;
+
+import javax.imageio.IIOException;
+
 import java.util.ArrayList;
 
 import java.nio.file.Path;
@@ -21,38 +24,17 @@ public class BuildToolDef
 
     public String url;
 
-    public List<BuildToolDef> parse(Path path)
+    public List<BuildToolDef> parse(Path path) throws IOException
     {
-        try
-        {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(new File(path.toString()), new TypeReference<List<BuildToolDef>>(){});
-        }
-        catch (IOException anException)
-        {
-            anException.printStackTrace();
-            return new ArrayList<>();
-        }
-
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(new File(path.toString()), new TypeReference<List<BuildToolDef>>(){});
     }
 
-    public List<BuildToolDef> parseFromAsset()
+    public List<BuildToolDef> parseFromAsset() throws FileNotFoundException,IOException
     {
-        try
-        {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(new File("defs/buildtools.json"),new TypeReference<List<BuildToolDef>>(){});
-        }
-        catch (FileNotFoundException anException)
-        {
-            System.out.println("buildtools.json: file not found");
-            return new ArrayList<>();
-        }
-        catch (IOException anException)
-        {
-            anException.printStackTrace();
-            return new ArrayList<>();
-        }
+        
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(new File("defs/buildtools.json"),new TypeReference<List<BuildToolDef>>(){});
     }
 
 }

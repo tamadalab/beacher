@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import java.nio.file.Path;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Beacher extends BuildToolDef
 {
@@ -23,7 +25,7 @@ public class Beacher extends BuildToolDef
         return result;
     }
 
-    public List<BuildToolDef> construct(Path defs,Path append)
+    public List<BuildToolDef> construct(Path defs,Path append) throws FileNotFoundException,IOException
     {
         List<BuildToolDef> def = new ArrayList<BuildToolDef>();
         if(defs!=null)
