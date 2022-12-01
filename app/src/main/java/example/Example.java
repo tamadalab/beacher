@@ -1,27 +1,33 @@
-package src;
+package example;
 /**
  * beacherのmain部分を作成します.
  */
 
-import java.nio.file;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.IOException;
 import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Formatter;
+import java.util.Objects;
 
-import static BuildToolsDef.*;
-import picocli.CommandLine;
+import example.BuildTool;
+import example.BuildToolsDef;
 import example.Cli;
-import static example.Format.*;
+import example.ProjectNotFound;
+import picocli.CommandLine;
 
 
 public class Example extends Object
 {  
-    public BufferedReader openImpl(String file) throws IOEexception 
+    public BufferedReader openImpl(String file) throws IOException 
     { // できた
         if(Objects.equals(file, "_"))
         {
@@ -29,22 +35,22 @@ public class Example extends Object
         }
         return new BufferedReader(new FileReader(file));
     }
-    public List<Path> parseProjectList(String list_file)
+    public List<Path> parseProjectList(String listFile)
     { // できた
-        BufferedReader file = openImpl(list_file);
+        BufferedReader file = openImpl(listFile);
         List<Path> lines = new ArrayList<Path>();
         String aString = null;
-        while((aString = file.readline()) != null)
+        while((aString = file.readLine()) != null)
         {
-            lines.add((Path)aString);
+            lines.add(Paths.get(aString));
         }
         return lines;
     }
-    public List<Path> parseTargets(String project_list, List<Path> dirs)
+    public List<Path> parseTargets(String projectList, List<Path> dirs)
     { // できた 
-        if(project_list != null)
+        if(projectList != null)
         {
-            return this.parseProjectList(project_list);
+            return this.parseProjectList(projectList);
         }
         else
         {
@@ -55,7 +61,7 @@ public class Example extends Object
     { // できた
         if(target.getFileName() != null)
         {
-            return (String)target.getFileName();
+            return target.getFileName().toString();
         }
         return null;
     }
@@ -76,12 +82,12 @@ public class Example extends Object
         }
         return null;
     }
-    public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs,  boolean no_ignore) throws IllegalArgumentException, IOEexception
+    public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs,  boolean no_ignore) throws IllegalArgumentException, IOException
     { // エラー処理がいる？
         List<BuildTool> buildTools = new ArrayList<>();
 
         // 例外
-        if(target.isFile()) throw new IllegalArgumentException();
+        if(target.toFile().isFile()) throw new IllegalArgumentException();
 
         File[] targets = target.toFile().listFiles();
         for(File aTarget : targets) // target内のファイルを調べていく targetの中身のファイルまでのPath取り出して
@@ -107,7 +113,7 @@ public class Example extends Object
     { // エラーまだ
         if(!target.toFile().exists()) // targetがなければ...
         {
-            throw new ProjectNotFound((String)target); // エラー処理(ProjectNotFound)
+            throw new ProjectNotFound(target.toString()); // エラー処理(ProjectNotFound)
         }
         else
         {
@@ -145,17 +151,10 @@ public class Example extends Object
         return 0;
 
     }
-    public void run() // できた
+    public void run(Cli opts) // できた
     {
-        Cli opts = new Cli();
-        // if(opts.format == Json){
-        //     // System.out.println("OK");
-        // }
-        // this.opts = ; // cliから受け取る
-        // opts.validate = opts.validate();
         opts.validate();
-        // List<String> dest = new BufferedWriter(new OutputStreamWriter(System.out)); // listで再現?
-        this.perfrom(opts);
+        this.perform(opts);
     }
     public static void main(String... arguments) // できた
     {
