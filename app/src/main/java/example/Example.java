@@ -3,129 +3,177 @@ package src;
  * beacherのmain部分を作成します.
  */
 
+import java.nio.file;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.IllegalArgumentException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static BuildToolsDef.*;
+import picocli.CommandLine;
+import example.Cli;
+import static example.Format.*;
 
-public class Options
-{
-    Option opts;
-    Path opts_definition;
-    Path opts_append_defs;
-    Format opts_format;
-    Option opts_dirs;
-    boolean opts_no_ignore;
-    Option opts_project_list;
-}
-public class BuildTool
-{
-    Path path; //PathBuff
-    BuildToolsDef def;
 
-    BuildTool buildtool = new BuildTool(path, def); // 初期化
-}
+// public class BuildTool
+// {
+//     Path path; //PathBuff
+//     BuildToolDef def;
+
+//     public BuildTool(Path path, BuildToolDef def)
+//     {
+//         this.path = path;
+//         this.def = def;
+//     }
+// }
 
 public class Example extends Object
 {  
-    public void open_impl(String file) throws IOEexception
-    {
-        if(Object.equals(file, "_"))
+    public BufferedReader openImpl(String file) throws IOEexception 
+    { // できた
+        if(Objects.equals(file, "_"))
         {
-            return new BufferedReader(new InputStringReader(System.in));
+            return new BufferedReader(new InputStreamReader(System.in));
         }
         return new BufferedReader(new FileReader(file));
     }
-    public void parse_project_list(String list_file)
-    {
-        f = open_impl(list_file);
-        List lines = List.new();
-        for(line in f.lines)
+    public List<Path> parseProjectList(String list_file)
+    { // できた
+        BufferedReader file = openImpl(list_file);
+        List<Path> lines = new ArrayList<Path>();
+        String aString = null;
+        while((aString = file.readline()) != null)
         {
-            lines.push(line.unwrap()) // PathBuff::from
+            lines.add((Path)aString);
         }
+        return lines;
     }
-    public void parse_tagerts(opts_project_list, opts_dirs)
-    {
-        String some_x;
-        if some_x = opts_project_list
+    public List<Path> parseTargets(String project_list, List<Path> dirs)
+    { // できた 
+        if(project_list != null)
         {
-            this.parse_project_list(some_x);
-        }
-        return opts_dirs;
-    }
-    public void extract_file_name(target)
-    {
-        if some_name = target.file_name()
-        {
-            name.to_str()
+            return this.parseProjectList(project_list);
         }
         else
-        {}
-    }
-    public void find_build_tools_impl(target, defs)
-    {
-        if(some_file_name = extract_file_name(target))
         {
-            for(def : defs)
+            return dirs;
+        }
+    }
+    public String extractFileName(Path target)
+    { // できた
+        if(target.getFileName() != null)
+        {
+            return (String)target.getFileName();
+        }
+        return null;
+    }
+    public BuildToolDef findBuildToolsImpl(Path target, List<BuildToolDef> defs)
+    { // できた
+        if(extractFileName(target) != null)
+        {
+            for(BuildToolDef def : defs)
             {
-                for(build_file : des.build_files)
+                for(String buildfile : def.build_files)
                 {
-                    if(some_file_name == build_file)
+                    if(extractFileName(target) == buildfile)
                     {
-                        return some_def.clone();
+                        return def;
                     }
                 }
             }
         }
+        return null;
     }
-    public void find_build_tools(target, defs, no-ignore)
-    {
-        List build_tools;
-        for(result : target)
+    public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs,  boolean no_ignore) throws IllegalArgumentException, IOEexception
+    { // エラー処理がいる？
+        List<BuildTool> buildTools = new ArrayList<>();
+
+        // 例外
+        if(target.isFile()) throw new IllegalArgumentException();
+
+        File[] targets = target.toFile().listFiles();
+        for(File aTarget : targets) // target内のファイルを調べていく targetの中身のファイルまでのPath取り出して
         {
-            if()
+            if(aTarget.isDirectory()) // 
             {
-                if some_def = find_build_tools_impl(entry.path(), defs)
-                {build_tools.push(BuildTool(entry.path()))}
+                // 再帰bildtoolsとbuildtoolsは合わせる
+                buildTools.addAll(findBuildTools(aTarget.toPath(), defs, no_ignore));
+
+            }
+            else
+            {
+                BuildToolDef def = findBuildToolsImpl(aTarget.toPath(), defs);
+                if(def != null)
+                {
+                    buildTools.add(new BuildTool(aTarget.toPath(), def));
+                }
             }
         }
-
+        return buildTools;
     }
-    public void perform_each(target, defs, no_ignore, formatter, dest)
-    {
-        if
-        {}
-        else
+    public void performEach(Path target, List<BuildToolDef> defs, boolean no_ignore, Formatter aFormatter) throws ProjectNotFound
+    { // エラーまだ
+        if(!target.toFile().exists()) // targetがなければ...
         {
-            if this.find_build_tools(target, defs, no_ignore)
-            {}
-        }
-
-    }
-    public void perfrom(opts, dest)
-    {
-        defs = construct(opts_definition, opts_append_defs); //beacherのconstructへ
-        formatter = formatter.build(opts_format);
-        if opts.list_defs // があれば?
-        {
-            formatter.print_defs(dest, defs);
+            throw new ProjectNotFound((String)target); // エラー処理(ProjectNotFound)
         }
         else
         {
-            targets = this.parse_tagerts(opts_project_list, opts_dirs);
-            // 拡張for文 (target : targets)
-            for(target : targets){
-                //if　
-                if err = this.perform_each(target, defs, opts_no_ignore, formatter, dest)
-                {}
+            try
+            {
+                List<BuildTool> result = findBuildTools(target, defs, no_ignore);
+                aFormatter.print(target, result);
             }
-        } 
+            catch(IllegalArgumentException e)
+            {
+                System.out.println("ディレクトリではなくファイルが渡されました.");
+            }
+            
+        }
+        
 
     }
-    public static void main(String... arguments)
+    public Integer perform(Cli opts)
     {
-        opts; // List ?
-        // if some_err = opts.validate()
-            System.out.println("%s", some_err);
-        dest; // 
-        this.perfrom(opts, dest);
+        List<BuildToolDef> defs = beacher.construct(opts.definition, opts.append_defs); //beacherのconstructへ
+
+        Formatter aFormatter = Formatter.build(opts.format);
+        if(opts.list_defs) // があれば
+        {
+            aFormatter.print_defs(defs);
+        }
+        List<Path> targets = this.parseTargets(opts.project_list, opts.dirs);
+        for(Path target : targets)    // targetsの要素をtargetとしてループ
+        {
+            // if(this.performEach(target, defs, opts.no_ignore, aFormatter))
+            // {}
+
+            this.performEach(target, defs, opts.no_ignore, aFormatter);
+        }
+        return 0;
+
+    }
+    public void run() // できた
+    {
+        Cli opts = new Cli();
+        // if(opts.format == Json){
+        //     // System.out.println("OK");
+        // }
+        // this.opts = ; // cliから受け取る
+        // opts.validate = opts.validate();
+        opts.validate();
+        // List<String> dest = new BufferedWriter(new OutputStreamWriter(System.out)); // listで再現?
+        this.perfrom(opts);
+    }
+    public static void main(String... arguments) // できた
+    {
+        int exitCode = new CommandLine(new Cli()).execute(arguments);
+        System.exit(exitCode);
+
     }
 }
+
