@@ -1,5 +1,4 @@
-//package com.github.tamadalab.beacher;
-package example;
+package com.github.tamadalab.beacher;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
