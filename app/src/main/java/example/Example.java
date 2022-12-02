@@ -12,10 +12,11 @@ import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
+import java.lang.InternalError;
 import java.util.ArrayList;
 import java.util.List;
-// import java.util.logging.Formatter;
 import java.util.Objects;
 
 import example.BuildTool;
@@ -31,7 +32,7 @@ public class Example extends Object
 {  
     public BufferedReader openImpl(String file) throws IOException 
     { // できた
-        if(Objects.equals(file, "_"))
+        if(Objects.equals(file, "-"))
         {
             return new BufferedReader(new InputStreamReader(System.in));
         }
@@ -124,20 +125,28 @@ public class Example extends Object
                 List<BuildTool> result = findBuildTools(target, defs, no_ignore);
                 aFormatter.print(target, result);
             }
-            catch(IllegalArgumentException e)
+            catch(IllegalArgumentException error)
             {
-                System.out.println("ディレクトリではなくファイルが渡されました.");
+                // System.out.println("ディレクトリではなくファイルが渡されました.");
+                System.out.println(" No Directory exists in the passed Path.%n");
             }
             
         }
         
 
     }
-    public Integer perform(Cli opts)
+    public Integer perform(Cli opts) throws IOException
     {
         Beacher aBeacher;
-        List<BuildToolDef> defs = aBeacher.construct(opts.definition, opts.append_defs); //beacherのconstructへ
 
+        try
+        {
+            List<BuildToolDef> defs = aBeacher.construct(opts.definition, opts.append_defs); //beacherのconstructへ
+        }
+        catch(FileNotFoundException error)
+        {
+            throw new InternalError(" buildtools.json is not Found.%n");
+        }
         Formatter aFormatter;
         aFormatter = aFormatter.build(opts.format);
         if(opts.list_defs) // があれば
@@ -147,9 +156,6 @@ public class Example extends Object
         List<Path> targets = this.parseTargets(opts.project_list, opts.dirs);
         for(Path target : targets)    // targetsの要素をtargetとしてループ
         {
-            // if(this.performEach(target, defs, opts.no_ignore, aFormatter))
-            // {}
-
             this.performEach(target, defs, opts.no_ignore, aFormatter);
         }
         return 0;
