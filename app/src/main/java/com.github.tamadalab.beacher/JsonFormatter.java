@@ -11,19 +11,19 @@ public class JsonFormatter implements Formatter {
     }
 
     public void printHeader(Path base) {
-        System.out.printf("base:%s,build-tools:[%n", base.toString());// header
+        System.out.printf("base:%s,build-tools:[%n", base.toString());
     }
 
     public void printFooter() {
-        System.out.println("]}}");// footer
+        System.out.println("]}}");
     }
 
     public void printDefHeader() {
-        System.out.println("[");// defHeader
+        System.out.println("[");
     }
 
     public void printDefFooter() {
-        System.out.println("]");// defFooter
+        System.out.println("]");
     }
 
     public void printDef(BuildToolDef def) {
