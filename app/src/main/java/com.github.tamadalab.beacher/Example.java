@@ -19,14 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import example.Beacher;
-import example.BothTargetSpecified;
-import example.BuildTool;
-import example.BuildToolDef;
-import example.Cli;
-import example.Formatter;
-import example.NoProjectSpecified;
-import example.ProjectNotFound;
+import com.github.tamadalab.beacher.Beacher;
+import com.github.tamadalab.beacher.BothTargetSpecified;
+import com.github.tamadalab.beacher.BuildTool;
+import com.github.tamadalab.beacher.BuildToolDef;
+import com.github.tamadalab.beacher.Cli;
+import com.github.tamadalab.beacher.Formatter;
+import com.github.tamadalab.beacher.NoProjectSpecified;
+import com.github.tamadalab.beacher.ProjectNotFound;
 import picocli.CommandLine;
 
 
@@ -96,7 +96,7 @@ public class Example extends Object
         File[] targets = target.toFile().listFiles();
         for(File aTarget : targets)
         {
-            if(aTarget.isDirectory()) // 
+            if(aTarget.isDirectory())
             {
                 // 再帰bildtoolsとbuildtoolsは合わせる
                 buildTools.addAll(findBuildTools(aTarget.toPath(), defs, no_ignore));
