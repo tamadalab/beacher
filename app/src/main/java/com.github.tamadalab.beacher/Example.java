@@ -1,4 +1,4 @@
-package example;
+package com.github.tamadalab.beacher;
 /**
  * beacherのmain部分.
  */
@@ -138,10 +138,11 @@ public class Example extends Object
     public Integer perform(Cli opts) throws IOException
     { // できた
         Beacher aBeacher;
+        List<BuildToolDef> defs = new ArrayList<>();
 
         try
         {
-            List<BuildToolDef> defs = aBeacher.construct(opts.definition, opts.append_defs); //beacherのconstructへ
+            defs = aBeacher.construct(opts.definition, opts.append_defs); //beacherのconstructへ
         }
         catch(FileNotFoundException error)
         { // beacher.javaからの例外処理

@@ -1,7 +1,7 @@
 /*
  * BuildToolの構成
  */
-package example;
+package com.github.tamadalab.beacher;
 
 import java.nio.file.Path;
 import example.BuildToolDef;
