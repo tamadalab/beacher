@@ -4,7 +4,7 @@
 package example;
 
 import java.nio.file.Path;
-import example.BuildToolsDef;
+import example.BuildToolDef;
 
 public class BuildTool {
     Path path; //PathBuff
