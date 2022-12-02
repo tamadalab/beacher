@@ -27,7 +27,7 @@ public class JsonFormatter implements Formatter {
     }
 
     public void printDef(BuildToolDef def) {
-        System.out.printf("<build-tool-def><name>%s</name><url>%s</url><build-files>", def.name, def.url);// printDef
+        System.out.printf("<build-tool-def><name>%s</name><url>%s</url><build-files>", def.name, def.url);
         for (BuildToolDef aBuildToolDef : def) {
             System.out.printf("<file-name>%s</file-name>", def);
         }

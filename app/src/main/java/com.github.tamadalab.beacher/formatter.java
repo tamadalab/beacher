@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.nio.file.Path;
 import java.util.EnumSet;
-//import java.util.StringJoiner;
 
 public interface Formatter {
 
@@ -23,23 +22,7 @@ public interface Formatter {
 
     void print(Path target, List<BuildTool> result);
 
-    /*
-     * this.printHeader(target);
-     * for(BuildTool aBuildTool : result){
-     * this.printEach(aBuildTool);
-     * }
-     * this.printFooter();
-     */
-
     void printDefs(List<BuildTooldef> defs);
-
-    /*
-     * this.printDefHeader();
-     * for(BuildToolDef aBuildToolDef: defs){
-     * this.printDef(aBuildToolDef);
-     * }
-     * this.printDefFooter();
-     */
 
     default Formatter build(Format aFormat) {
         Formatter aFormatter;

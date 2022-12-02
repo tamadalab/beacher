@@ -30,24 +30,21 @@ public class DefaultFormatter implements Formatter {
     }
 
     public void printHeader(BuildTooldef def, Path base) {
-        System.out.printf("%s%n", base.toString());// thisのところにもらってきたクラス名を入れると動くはず
+        System.out.printf("%s%n", base.toString());
     }
 
     public void printEach(Path base, BuildTool result) {
-        System.out.printf("%s: %s%n", base.toString(), result.def.name);// いーち
+        System.out.printf("%s: %s%n", base.toString(), result.def.name);
     }
 
     public void printDef(Path base, BuildToolDef def) {
-        System.out.printf("%s: ", def.name);// def
+        System.out.printf("%s: ", def.name);
+        for (String abuildFile : def.buildFiles) {
+            System.out.print(abuildFile + ",");
+        }
 
-        /*
-         * for (String abuildFile : def.buildFiles) {
-         * System.out.print(abuildFile + ",");
-         * }
-         */
     }
 
-    // 最後に,が残ってしまうのでその消し方
     public void print(Path target, List<BuildTool> result) {
         this.printHeader(target);
         for (BuildTool aBuildTool : result) {

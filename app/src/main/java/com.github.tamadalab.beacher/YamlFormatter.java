@@ -23,26 +23,26 @@ public class YamlFormatter implements Formatter {
     }
 
     public void printHeader(Path base) {
-        System.out.printf("base: %s%n", base.toString());// printHeader
+        System.out.printf("base: %s%n", base.toString());
     }
 
     public void printEach(Path base, BuildToolDef def, BuildTool result) {
-        System.out.printf("  - file-path: %s", result.path.toString());// printEach
+        System.out.printf("  - file-path: %s", result.path.toString());
         System.out.println("    tool-name: %s", def.name);
     }
 
     public void printDefHeader() {
-        System.out.println("build-tools-defs");// printDefHeader
+        System.out.println("build-tools-defs");
     }
 
     public void printDef(BuildToolDef def, Path target) {
         int index = 0;
-        System.out.println("  - name: %s", def.name);// printDef
+        System.out.println("  - name: %s", def.name);
         System.out.println("    url: %s", def.url);
         System.out.println("    file-names:");
 
         for (BuildToolDef aBuildTooldef : def) {
-            this.printFileName(index, aBuildTooldef.BuildFiles);// filenameが何かわからない、indexはこれで増えるのか
+            this.printFileName(index, aBuildTooldef.BuildFiles);
             index++;
         }
     }
