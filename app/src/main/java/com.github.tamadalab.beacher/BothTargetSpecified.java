@@ -8,3 +8,8 @@ public class BothTargetSpecified extends Exception{
         super("both project list and directories are specified");
     }
 }
+/* 
+catch(BothTargetSpecified e){
+    System.out.println(e.getMessage());
+}
+*/

@@ -7,9 +7,13 @@ import picocli.CommandLine;
 
 
 public class App{
+    public void test(Cli c){
+        System.out.println(c.project_list);
+    }
     public void run(Cli c){
         if(c.format == Format.Json){
             System.out.println("OK");
+            this.test(c);
         }
     }
     public static void main(String[] args) {
