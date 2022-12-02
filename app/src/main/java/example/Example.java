@@ -1,6 +1,6 @@
 package example;
 /**
- * beacherのmain部分を作成します.
+ * beacherのmain部分.
  */
 
 import java.nio.file.Path;
@@ -19,11 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import example.BuildTool;
 import example.Beacher;
+import example.BothTargetSpecified;
+import example.BuildTool;
 import example.BuildToolDef;
 import example.Cli;
 import example.Formatter;
+import example.NoProjectSpecified;
 import example.ProjectNotFound;
 import picocli.CommandLine;
 
@@ -86,14 +88,13 @@ public class Example extends Object
         return null;
     }
     public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs,  boolean no_ignore) throws IllegalArgumentException, IOException
-    { // エラー処理がいる？
+    { // できた
         List<BuildTool> buildTools = new ArrayList<>();
 
-        // 例外
-        if(target.toFile().isFile()) throw new IllegalArgumentException();
+        if(target.toFile().isFile()) throw new IllegalArgumentException(); // 例外処理(IllegalArgumentException)
 
         File[] targets = target.toFile().listFiles();
-        for(File aTarget : targets) // target内のファイルを調べていく targetの中身のファイルまでのPath取り出して
+        for(File aTarget : targets)
         {
             if(aTarget.isDirectory()) // 
             {
@@ -113,10 +114,10 @@ public class Example extends Object
         return buildTools;
     }
     public void performEach(Path target, List<BuildToolDef> defs, boolean no_ignore, Formatter aFormatter) throws ProjectNotFound
-    { // エラーまだ
-        if(!target.toFile().exists()) // targetがなければ...
+    { // できた
+        if(!target.toFile().exists())
         {
-            throw new ProjectNotFound(target.toString()); // エラー処理(ProjectNotFound)
+            throw new ProjectNotFound(target.toString()); // 例外処理(ProjectNotFound)
         }
         else
         {
@@ -126,9 +127,8 @@ public class Example extends Object
                 aFormatter.print(target, result);
             }
             catch(IllegalArgumentException error)
-            {
-                // System.out.println("ディレクトリではなくファイルが渡されました.");
-                System.out.println(" No Directory exists in the passed Path.%n");
+            { // findBuildToolsからの例外処理
+                System.out.println(target+": is not Directory.%n");
             }
             
         }
@@ -136,7 +136,7 @@ public class Example extends Object
 
     }
     public Integer perform(Cli opts) throws IOException
-    {
+    { // できた
         Beacher aBeacher;
 
         try
@@ -144,30 +144,48 @@ public class Example extends Object
             List<BuildToolDef> defs = aBeacher.construct(opts.definition, opts.append_defs); //beacherのconstructへ
         }
         catch(FileNotFoundException error)
-        {
+        { // beacher.javaからの例外処理
             throw new InternalError(" buildtools.json is not Found.%n");
         }
         Formatter aFormatter;
         aFormatter = aFormatter.build(opts.format);
-        if(opts.list_defs) // があれば
+        if(opts.list_defs)
         {
             aFormatter.print_defs(defs);
         }
         List<Path> targets = this.parseTargets(opts.project_list, opts.dirs);
-        for(Path target : targets)    // targetsの要素をtargetとしてループ
+        for(Path target : targets)
         {
-            this.performEach(target, defs, opts.no_ignore, aFormatter);
+            try
+            {
+                this.performEach(target, defs, opts.no_ignore, aFormatter);
+            }
+            catch(ProjectNotFound error)
+            {
+                System.out.println(error.getMessage());
+            }
         }
         return 0;
 
     }
-    public void run(Cli opts) // できた
-    {
-        opts.validate();
-        this.perform(opts);
+    public void run(Cli opts) throws BothTargetSpecified, NoProjectSpecified
+    { // できた
+        try
+        {
+            opts.validate();
+            this.perform(opts);
+        }
+        catch(BothTargetSpecified error)
+        { // Cliからの例外処理
+            System.out.println(error.getMessage());
+        }
+        catch(NoProjectSpecified error)
+        { // Cliからの例外処理
+            System.out.println(error.getMessage());
+        }
     }
-    public static void main(String... arguments) // できた
-    {
+    public static void main(String... arguments)
+    { // できた
         int exitCode = new CommandLine(new Cli()).execute(arguments);
         System.exit(exitCode);
 
