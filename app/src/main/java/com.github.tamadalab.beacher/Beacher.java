@@ -30,18 +30,18 @@ public class Beacher extends BuildToolDef
         List<BuildToolDef> def = new ArrayList<BuildToolDef>();
         if(defs!=null)
         {
-            def = parse(defs);
+            def = super.parse(defs);
         }
         else
         {
-            def = parseFromAsset();
+            def = super.parseFromAsset();
         }
 
         List<BuildToolDef> result = new ArrayList<BuildToolDef>();
         if (append!=null)
         {
-            List<BuildToolDef> additionalDefs = parse(append);
-            result = mergeBuildTools(def, additionalDefs);
+            List<BuildToolDef> additionalDefs = super.parse(append);
+            result = this.mergeBuildTools(def, additionalDefs);
         }
         else
         {
