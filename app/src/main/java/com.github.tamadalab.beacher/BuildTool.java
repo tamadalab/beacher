@@ -1,10 +1,10 @@
+package com.github.tamadalab.beacher;
 /*
  * BuildToolの構成
  */
-package com.github.tamadalab.beacher;
 
 import java.nio.file.Path;
-import example.BuildToolDef;
+import com.github.tamadalab.beacher.BuildToolDef;
 
 public class BuildTool {
     Path path; //PathBuff

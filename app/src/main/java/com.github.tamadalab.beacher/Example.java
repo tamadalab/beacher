@@ -33,7 +33,7 @@ import picocli.CommandLine;
 public class Example extends Object
 {  
     public BufferedReader openImpl(String file) throws IOException 
-    { // できた
+    {
         if(Objects.equals(file, "-"))
         {
             return new BufferedReader(new InputStreamReader(System.in));
@@ -41,7 +41,7 @@ public class Example extends Object
         return new BufferedReader(new FileReader(file));
     }
     public List<Path> parseProjectList(String listFile)
-    { // できた
+    {
         BufferedReader file = openImpl(listFile);
         List<Path> lines = new ArrayList<Path>();
         String aString = null;
@@ -52,7 +52,7 @@ public class Example extends Object
         return lines;
     }
     public List<Path> parseTargets(String projectList, List<Path> dirs)
-    { // できた 
+    {
         if(projectList != null)
         {
             return this.parseProjectList(projectList);
@@ -63,7 +63,7 @@ public class Example extends Object
         }
     }
     public String extractFileName(Path target)
-    { // できた
+    {
         if(target.getFileName() != null)
         {
             return target.getFileName().toString();
@@ -71,7 +71,7 @@ public class Example extends Object
         return null;
     }
     public BuildToolDef findBuildToolsImpl(Path target, List<BuildToolDef> defs)
-    { // できた
+    {
         if(extractFileName(target) != null)
         {
             for(BuildToolDef def : defs)
@@ -114,7 +114,7 @@ public class Example extends Object
         return buildTools;
     }
     public void performEach(Path target, List<BuildToolDef> defs, boolean no_ignore, Formatter aFormatter) throws ProjectNotFound
-    { // できた
+    {
         if(!target.toFile().exists())
         {
             throw new ProjectNotFound(target.toString()); // 例外処理(ProjectNotFound)
@@ -136,7 +136,7 @@ public class Example extends Object
 
     }
     public Integer perform(Cli opts) throws IOException
-    { // できた
+    {
         Beacher aBeacher;
         List<BuildToolDef> defs = new ArrayList<>();
 
@@ -170,7 +170,7 @@ public class Example extends Object
 
     }
     public void run(Cli opts) throws BothTargetSpecified, NoProjectSpecified
-    { // できた
+    {
         try
         {
             opts.validate();
@@ -186,7 +186,7 @@ public class Example extends Object
         }
     }
     public static void main(String... arguments)
-    { // できた
+    {
         int exitCode = new CommandLine(new Cli()).execute(arguments);
         System.exit(exitCode);
 
