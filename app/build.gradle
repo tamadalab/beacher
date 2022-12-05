@@ -31,7 +31,7 @@ dependencies {
 jar {
     manifest{
         attributes(
-                "Main-Class": "com.github.tamadalab.beacher.App",
+                "Main-Class": "com.github.tamadalab.beacher.Example",
                 "Class-Path": configurations.compileClasspath.files.collect { it.getName() }.join(' ')
         )
     }
@@ -55,7 +55,7 @@ testing {
 
 application {
     // Define the main class for the application.
-    mainClass = 'com.github.tamadalab.beacher.App'
+    mainClass = 'com.github.tamadalab.beacher.Example'
 }
 
 build.finalizedBy copyFile
