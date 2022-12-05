@@ -28,7 +28,7 @@ public class JsonFormatter implements Formatter {
 
     public void printDef(BuildToolDef def) {
         System.out.printf("<build-tool-def><name>%s</name><url>%s</url><build-files>", def.name, def.url);
-        for (BuildToolDef aBuildToolDef : def) {
+        for (String afileName : def.buildFiles) {
             System.out.printf("<file-name>%s</file-name>", def);
         }
         System.out.println("</build-files></build-tool-def>");
@@ -42,7 +42,7 @@ public class JsonFormatter implements Formatter {
         this.printFooter();
     }
 
-    public void printDefs(List<BuildTooldef> defs) {
+    public void printDefs(List<BuildToolDef> defs) {
         this.printDefHeader();
         for (BuildToolDef aBuildToolDef : defs) {
             this.printDef(aBuildToolDef);

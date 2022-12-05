@@ -40,7 +40,8 @@ public class Example extends Object
         }
         return new BufferedReader(new FileReader(file));
     }
-    public List<Path> parseProjectList(String listFile)
+
+    public List<Path> parseProjectList(String listFile) throws IOException
     {
         BufferedReader file = openImpl(listFile);
         List<Path> lines = new ArrayList<Path>();
@@ -51,7 +52,8 @@ public class Example extends Object
         }
         return lines;
     }
-    public List<Path> parseTargets(String projectList, List<Path> dirs)
+    
+    public List<Path> parseTargets(String projectList, List<Path> dirs) throws IOException
     {
         if(projectList != null)
         {
@@ -62,6 +64,7 @@ public class Example extends Object
             return dirs;
         }
     }
+
     public String extractFileName(Path target)
     {
         if(target.getFileName() != null)
@@ -70,6 +73,7 @@ public class Example extends Object
         }
         return null;
     }
+
     public BuildToolDef findBuildToolsImpl(Path target, List<BuildToolDef> defs)
     {
         if(extractFileName(target) != null)
@@ -87,6 +91,7 @@ public class Example extends Object
         }
         return null;
     }
+
     public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs,  boolean no_ignore) throws IllegalArgumentException, IOException
     { // できた
         List<BuildTool> buildTools = new ArrayList<>();
@@ -113,7 +118,8 @@ public class Example extends Object
         }
         return buildTools;
     }
-    public void performEach(Path target, List<BuildToolDef> defs, boolean no_ignore, Formatter aFormatter) throws ProjectNotFound
+
+    public void performEach(Path target, List<BuildToolDef> defs, boolean no_ignore, Formatter aFormatter) throws ProjectNotFound, IOException
     {
         if(!target.toFile().exists())
         {
@@ -128,16 +134,15 @@ public class Example extends Object
             }
             catch(IllegalArgumentException error)
             { // findBuildToolsからの例外処理
-                System.out.println(target+": is not Directory.%n");
+                System.out.println(target+": is not Directory.");
             }
             
         }
-        
-
     }
-    public Integer perform(Cli opts) throws IOException
+
+    public void perform(Cli opts) throws IOException
     {
-        Beacher aBeacher;
+        Beacher aBeacher = new Beacher();
         List<BuildToolDef> defs = new ArrayList<>();
 
         try
@@ -146,15 +151,16 @@ public class Example extends Object
         }
         catch(FileNotFoundException error)
         { // beacher.javaからの例外処理
-            throw new InternalError(" buildtools.json is not Found.%n");
+            throw new InternalError(" buildtools.json is not Found.");
         }
-        Formatter aFormatter;
+        Formatter aFormatter = new DefaultFormatter();
         aFormatter = aFormatter.build(opts.format);
         if(opts.list_defs)
         {
-            aFormatter.print_defs(defs);
+            aFormatter.printDefs(defs);
         }
         List<Path> targets = this.parseTargets(opts.project_list, opts.dirs);
+        if(targets == null) return;
         for(Path target : targets)
         {
             try
@@ -166,10 +172,10 @@ public class Example extends Object
                 System.out.println(error.getMessage());
             }
         }
-        return 0;
-
+        return;
     }
-    public void run(Cli opts) throws BothTargetSpecified, NoProjectSpecified
+
+    public void run(Cli opts)
     {
         try
         {
@@ -184,8 +190,13 @@ public class Example extends Object
         { // Cliからの例外処理
             System.out.println(error.getMessage());
         }
+        catch(IOException error)
+        {
+            error.printStackTrace();
+        }
     }
-    public static void main(String... arguments)
+
+    public static void main(String... arguments) throws IOException
     {
         int exitCode = new CommandLine(new Cli()).execute(arguments);
         System.exit(exitCode);

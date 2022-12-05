@@ -22,12 +22,12 @@ public class YamlFormatter implements Formatter {
     }
 
     public void printHeader(Path base) {
-        System.out.printf("base: %s%n", base.toString());
+        System.out.println("base: " + base.toString());
     }
 
     public void printEach(Path base, BuildToolDef def, BuildTool result) {
-        System.out.printf("  - file-path: %s", result.path.toString());
-        System.out.println("    tool-name: %s", def.name);
+        System.out.println("  - file-path: %s" + result.path.toString());
+        System.out.println("    tool-name: " + def.name);
     }
 
     public void printDefHeader() {
@@ -36,25 +36,23 @@ public class YamlFormatter implements Formatter {
 
     public void printDef(BuildToolDef def, Path target) {
         int index = 0;
-        System.out.println("  - name: %s", def.name);
-        System.out.println("    url: %s", def.url);
+        System.out.println("  - name: " + def.name);
+        System.out.println("    url: " + def.url);
         System.out.println("    file-names:");
 
-        for (BuildToolDef aBuildTooldef : def) {
-            this.printFileName(index, aBuildTooldef.BuildFiles);
+        for (String afileName : def.buildFiles) {
+            this.printFileName(index, afileName);
             index++;
         }
     }
 
-    public void printFileName() {
-        int index;
-        String fileName;
+    public void printFileName(int index, String afileName) {
         if (index == 0) {
             System.out.print("      -");
         } else {
             System.out.print("       ");
         }
-        System.out.printf("%s%n", fileName);
+        System.out.println(afileName);
     }
 
     public void print(Path target, List<BuildTool> result) {
@@ -65,7 +63,7 @@ public class YamlFormatter implements Formatter {
         this.printFooter();
     }
 
-    public void printDefs(List<BuildTooldef> defs) {
+    public void printDefs(List<BuildToolDef> defs) {
         this.printDefHeader();
         for (BuildToolDef aBuildToolDef : defs) {
             this.printDef(aBuildToolDef);

@@ -1,6 +1,6 @@
 package com.github.tamadalab.beacher;
 
-import example.Format;
+import com.github.tamadalab.beacher.Format;
 import java.util.ArrayList;
 import java.util.List;
 import java.nio.file.Path;
@@ -22,10 +22,10 @@ public interface Formatter {
 
     void print(Path target, List<BuildTool> result);
 
-    void printDefs(List<BuildTooldef> defs);
+    void printDefs(List<BuildToolDef> defs);
 
     default Formatter build(Format aFormat) {
-        Formatter aFormatter;
+        Formatter aFormatter = new DefaultFormatter();
         switch (aFormat) {
             case Json:
                 aFormatter = new JsonFormatter();

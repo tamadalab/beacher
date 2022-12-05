@@ -29,7 +29,7 @@ public class DefaultFormatter implements Formatter {
 
     }
 
-    public void printHeader(BuildTooldef def, Path base) {
+    public void printHeader(BuildToolDef def, Path base) {
         System.out.printf("%s%n", base.toString());
     }
 
@@ -53,7 +53,7 @@ public class DefaultFormatter implements Formatter {
         this.printFooter();
     }
 
-    public void printDefs(List<BuildTooldef> defs) {
+    public void printDefs(List<BuildToolDef> defs) {
         this.printDefHeader();
         for (BuildToolDef aBuildToolDef : defs) {
             this.printDef(aBuildToolDef);

@@ -10,6 +10,7 @@ import picocli.CommandLine.Parameters;
 import java.nio.file.Path;
 import java.util.List;
 import java.lang.Runnable;
+import java.io.IOException;
 
 @Command(name = "beacher", mixinStandardHelpOptions = true, version = "beacher 0.1",
          description = "A tool for detecting build tools of the projects")
@@ -37,7 +38,7 @@ public class Cli implements Runnable{
     List<Path> dirs;
 
     public void run(){
-        new App().run(this);
+        new Example().run(this);
     }
 
     public void validate() throws BothTargetSpecified, NoProjectSpecified{
