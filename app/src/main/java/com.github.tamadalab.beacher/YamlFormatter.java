@@ -9,10 +9,6 @@ public class YamlFormatter implements Formatter {
         return;
     }
 
-    public void printDef(BuildToolDef aBuildTooldef) {
-        return;
-    }
-
     public void printFooter() {
         return;
     }
@@ -34,7 +30,7 @@ public class YamlFormatter implements Formatter {
         System.out.println("build-tools-defs");
     }
 
-    public void printDef(BuildToolDef def, Path target) {
+    public void printDef(BuildToolDef def) {
         int index = 0;
         System.out.println("  - name: " + def.name);
         System.out.println("    url: " + def.url);
