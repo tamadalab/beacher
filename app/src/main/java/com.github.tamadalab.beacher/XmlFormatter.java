@@ -5,15 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XmlFormatter implements Formatter {
-    public void printDefFooter() {
-        return;
-    }
 
     public void printEach(BuildTool aBuildTool) {
-        return;
-    }
-
-    public void printDefHeader() {
         return;
     }
 
@@ -31,21 +24,21 @@ public class XmlFormatter implements Formatter {
                 result.path.toString(), def.name);
     }
 
-    public void defHeader() {
+    public void printDefHeader() {
         System.out.println("<?xml version=\"1.0\"?>");
-        System.out.println("<build-tool-defs>");
+        System.out.print("<build-tool-defs>");
     }
 
-    public void defFooter() {
+    public void printDefFooter() {
         System.out.println("</build-tool-defs>");
     }
 
     public void printDef(BuildToolDef def) {
         System.out.printf("<build-tool-def><name>%s</name><url>%s</url><build-files>", def.name, def.url);
         for (String afileName : def.buildFiles) {
-            System.out.printf("<file-name>%s</file-name>", def);
+            System.out.printf("<file-name>%s</file-name>", afileName);
         }
-        System.out.println("</build-files></build-tool-def>");
+        System.out.print("</build-files></build-tool-def>");
     }
 
     public void print(Path target, List<BuildTool> result) {
