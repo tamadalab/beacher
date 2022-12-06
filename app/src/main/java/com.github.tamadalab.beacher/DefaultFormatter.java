@@ -13,10 +13,6 @@ public class DefaultFormatter implements Formatter {
         return;
     }
 
-    public void printDef(BuildToolDef aBuildTooldef) {
-        return;
-    }
-
     public void printFooter() {
         return;
     }
@@ -37,12 +33,9 @@ public class DefaultFormatter implements Formatter {
         System.out.printf("%s: %s%n", base.toString(), result.def.name);
     }
 
-    public void printDef(Path base, BuildToolDef def) {
+    public void printDef(BuildToolDef def) {
         System.out.printf("%s: ", def.name);
-        for (String abuildFile : def.buildFiles) {
-            System.out.print(abuildFile + ",");
-        }
-
+        System.out.println(String.join(", ", def.buildFiles));
     }
 
     public void print(Path target, List<BuildTool> result) {
