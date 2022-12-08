@@ -140,6 +140,22 @@ public class Example extends Object
         }
     }
 
+    private List<BuildToolDef> readDefinitionFile(Beacher beacher, Cli opts) {
+        try {
+            return beacher.construct(opts.definition, opts.append_defs);
+        } catch(IOException e) {
+            throw new InternalError(e);
+        }
+    }
+
+    public void perform2(Cli opts) throws IOException {
+        Beacher beacher = new Beacher();
+        List<BuildToolDef> defs = readDefinitionFile(beacher, opts);
+        List<Path> targets = this.parseTargets(opts.project_list, opts.dirs);
+        List<Result> results = execute(targets, defs, opts.no_ignore);
+        printResult(results);
+    }
+
     public void perform(Cli opts) throws IOException
     {
         Beacher aBeacher = new Beacher();
