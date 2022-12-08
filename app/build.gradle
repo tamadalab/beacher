@@ -48,7 +48,7 @@ testing {
         // Configure the built-in test suite
         test {
             // Use JUnit4 test framework
-            useJUnit('4.13.2')
+            useJUnitPlatform()
         }
     }
 }
