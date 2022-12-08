@@ -84,7 +84,7 @@ public class Example extends Object
             {
                 for(String buildfile : def.buildFiles)
                 {
-                    if(extractFileName(target) == buildfile)
+                    if(Objects.equals(extractFileName(target),buildfile))
                     {
                         
                         return def;
