@@ -26,6 +26,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
 
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+
 }
 
 jar {
@@ -43,14 +45,9 @@ task copyFile(type: Copy){
     into "$buildDir/libs"
 }
 
-testing {
-    suites {
-        // Configure the built-in test suite
-        test {
-            // Use JUnit4 test framework
-            useJUnitPlatform()
-        }
-    }
+tasks.named('test') {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
 }
 
 application {
