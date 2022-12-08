@@ -76,46 +76,61 @@ public class Example extends Object
 
     public BuildToolDef findBuildToolsImpl(Path target, List<BuildToolDef> defs)
     {
+        if(defs.isEmpty()) System.out.println("defs is empty");
         if(extractFileName(target) != null)
         {
+            System.out.println("implIfOk");
             for(BuildToolDef def : defs)
             {
                 for(String buildfile : def.buildFiles)
                 {
                     if(extractFileName(target) == buildfile)
                     {
+                        
                         return def;
                     }
                 }
             }
         }
+        System.out.println("implnull");
         return null;
     }
 
     public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs,  boolean no_ignore) throws IllegalArgumentException, IOException
-    { // できた
+    {
         List<BuildTool> buildTools = new ArrayList<>();
 
         if(target.toFile().isFile()) throw new IllegalArgumentException(); // 例外処理(IllegalArgumentException)
 
-        File[] targets = target.toFile().listFiles();
+        //System.out.println(target.toString());
+        File afile = target.toFile();
+        File[] targets = afile.listFiles();
+        //System.out.println(targets);
+        // if(targets.length == 0){
+        //     System.out.println("targets is empty");
+        // }
         for(File aTarget : targets)
         {
             if(aTarget.isDirectory())
             {
+                //System.out.println("ifOk");
                 // 再帰bildtoolsとbuildtoolsは合わせる
                 buildTools.addAll(findBuildTools(aTarget.toPath(), defs, no_ignore));
 
             }
             else
             {
+                //System.out.println("elseOk");
                 BuildToolDef def = findBuildToolsImpl(aTarget.toPath(), defs);
                 if(def != null)
                 {
+                    System.out.println("elseOk");
                     buildTools.add(new BuildTool(aTarget.toPath(), def));
                 }
             }
         }
+
+        //System.out.println(buildTools);
         return buildTools;
     }
 
