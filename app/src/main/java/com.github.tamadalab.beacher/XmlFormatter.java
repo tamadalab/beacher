@@ -12,7 +12,7 @@ public class XmlFormatter implements Formatter {
 
     public void printHeader(Path base) {
         System.out.println("<?xml version=\"1.0\"?>");
-        System.out.printf("<build-tools><base>%s</base>%n", base.toString());
+        System.out.printf("<build-tools><base>%s</base>", base.toString());
     }
 
     public void printFooter() {
