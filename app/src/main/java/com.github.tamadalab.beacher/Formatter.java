@@ -10,6 +10,8 @@ public interface Formatter {
 
     void printEach(BuildTool aBuildTool);
 
+    void printEach(int index, BuildTool aBuildTool);
+
     void printHeader(Path target);
 
     void printFooter();

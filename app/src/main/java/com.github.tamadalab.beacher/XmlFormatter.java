@@ -6,7 +6,7 @@ import java.util.List;
 
 public class XmlFormatter implements Formatter {
 
-    public void printEach(BuildTool aBuildTool) {
+    public void printEach(int index, BuildTool aBuildTool) {
         return;
     }
 
@@ -19,9 +19,9 @@ public class XmlFormatter implements Formatter {
         System.out.println("</build-tools>");
     }
 
-    public void printEach(BuildTool result, BuildToolDef def) {
+    public void printEach(BuildTool result) {
         System.out.printf("<build-tool><file-path>%s</file-path><tool-name>%s</tool-name></build-tool>",
-                result.path.toString(), def.name);
+                result.path.toString(), result.def.name);
     }
 
     public void printDefHeader() {

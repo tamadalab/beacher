@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultFormatter implements Formatter {
+
+    public void printEach(int index, BuildTool aBuildTool) {
+        return;
+    }
+
     public void printDefFooter() {
         return;
     }
@@ -17,20 +22,13 @@ public class DefaultFormatter implements Formatter {
         return;
     }
 
-    public void printEach(BuildTool aBuildTool) {
-
-    }
-
-    public void printHeader(Path target) {
-
-    }
-
-    public void printHeader(BuildToolDef def, Path base) {
+    public void printHeader(Path base) {
         System.out.printf("%s%n", base.toString());
     }
 
-    public void printEach(Path base, BuildTool result) {
-        System.out.printf("%s: %s%n", base.toString(), result.def.name);
+    public void printEach(BuildTool result) {
+        System.out.print("printEachOkDefault");
+        System.out.printf("%s: %s%n", result.path.toString(), result.def.name);
     }
 
     public void printDef(BuildToolDef def) {
@@ -39,8 +37,10 @@ public class DefaultFormatter implements Formatter {
     }
 
     public void print(Path target, List<BuildTool> result) {
+        System.out.println("printOk");
         this.printHeader(target);
         for (BuildTool aBuildTool : result) {
+            System.out.println("forOkDefault");
             this.printEach(aBuildTool);
         }
         this.printFooter();

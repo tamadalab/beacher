@@ -6,8 +6,16 @@ import java.util.List;
 
 public class JsonFormatter implements Formatter {
 
-    public void printEach(BuildTool aBuildTool) {
+    public void printEach(BuildTool result) {
+        System.out.print("Ok");
+    }
 
+    public void printEach(int index, BuildTool result) {
+        if(index > 0) {
+            System.out.print(",");
+        }
+        System.out.printf("{\"file-path\":\"%s\",\"tool-name\":\"%s\"}",result.path.toString(),result.def.name);
+        System.out.print("printEachOk");
     }
 
     public void printHeader(Path base) {
@@ -36,8 +44,15 @@ public class JsonFormatter implements Formatter {
 
     public void print(Path target, List<BuildTool> result) {
         this.printHeader(target);
+        int index=0;
+        // if(result.isEmpty())
+        // {
+        //     System.out.println("reslut is null");
+        // }
         for (BuildTool aBuildTool : result) {
-            this.printEach(aBuildTool);
+            System.out.println("forOkJson");
+            this.printEach(index,aBuildTool);
+            index++;
         }
         this.printFooter();
     }

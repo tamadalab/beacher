@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class YamlFormatter implements Formatter {
+
+    public void printEach(int index, BuildTool aBuildTool) {
+        return;
+    }
+    
     public void printDefFooter() {
         return;
     }
@@ -13,17 +18,13 @@ public class YamlFormatter implements Formatter {
         return;
     }
 
-    public void printEach(BuildTool aBuildTool) {
-        return;
-    }
-
     public void printHeader(Path base) {
         System.out.println("base: " + base.toString());
     }
 
-    public void printEach(Path base, BuildToolDef def, BuildTool result) {
+    public void printEach(BuildTool result) {
         System.out.println("  - file-path: %s" + result.path.toString());
-        System.out.println("    tool-name: " + def.name);
+        System.out.println("    tool-name: " + result.def.name);
     }
 
     public void printDefHeader() {
