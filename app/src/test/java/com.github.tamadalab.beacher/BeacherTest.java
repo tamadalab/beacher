@@ -1,2 +1,12 @@
-package com.github.tamadalab.beacher;public class BeacherTest {
+package com.github.tamadalab.beacher;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+public class BeacherTest {
+
+    @Test
+    public void testConstruct()
+    {
+
+    }
 }
