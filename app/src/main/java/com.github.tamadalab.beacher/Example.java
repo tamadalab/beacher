@@ -96,7 +96,7 @@ public class Example extends Object
         return null;
     }
 
-    public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs,  boolean no_ignore) throws IllegalArgumentException, IOException
+    public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs,  boolean noIgnore) throws IllegalArgumentException, IOException
     {
         List<BuildTool> buildTools = new ArrayList<>();
 
@@ -115,7 +115,7 @@ public class Example extends Object
             {
                 //System.out.println("ifOk");
                 // 再帰bildtoolsとbuildtoolsは合わせる
-                buildTools.addAll(findBuildTools(aTarget.toPath(), defs, no_ignore));
+                buildTools.addAll(findBuildTools(aTarget.toPath(), defs, noIgnore));
 
             }
             else
@@ -134,7 +134,7 @@ public class Example extends Object
         return buildTools;
     }
 
-    public void performEach(Path target, List<BuildToolDef> defs, boolean no_ignore, Formatter aFormatter) throws ProjectNotFound, IOException
+    public void performEach(Path target, List<BuildToolDef> defs, boolean noIgnore, Formatter aFormatter) throws ProjectNotFound, IOException
     {
         if(!target.toFile().exists())
         {
@@ -144,7 +144,7 @@ public class Example extends Object
         {
             try
             {
-                List<BuildTool> result = findBuildTools(target, defs, no_ignore);
+                List<BuildTool> result = findBuildTools(target, defs, noIgnore);
                 aFormatter.print(target, result);
             }
             catch(IllegalArgumentException error)
@@ -162,7 +162,7 @@ public class Example extends Object
 
         try
         {
-            defs = aBeacher.construct(opts.definition, opts.append_defs); //beacherのconstructへ
+            defs = aBeacher.construct(opts.definition, opts.appendDefs); //beacherのconstructへ
         }
         catch(FileNotFoundException error)
         { // beacher.javaからの例外処理
@@ -170,17 +170,17 @@ public class Example extends Object
         }
         Formatter aFormatter = new DefaultFormatter();
         aFormatter = aFormatter.build(opts.format);
-        if(opts.list_defs)
+        if(opts.listDefs)
         {
             aFormatter.printDefs(defs);
         }
-        List<Path> targets = this.parseTargets(opts.project_list, opts.dirs);
+        List<Path> targets = this.parseTargets(opts.projectList, opts.dirs);
         if(targets == null) return;
         for(Path target : targets)
         {
             try
             {
-                this.performEach(target, defs, opts.no_ignore, aFormatter);
+                this.performEach(target, defs, opts.noIgnore, aFormatter);
             }
             catch(ProjectNotFound error)
             {
