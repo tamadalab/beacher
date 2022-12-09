@@ -10,7 +10,6 @@ import picocli.CommandLine.Parameters;
 import java.nio.file.Path;
 import java.util.List;
 import java.lang.Runnable;
-import java.io.IOException;
 
 @Command(name = "beacher", mixinStandardHelpOptions = true, version = "beacher 1.0",
          description = "A tool for detecting build tools of the projects")

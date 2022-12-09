@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class CliTest {
 
     @Test
-    void validateTest() throws Exception{
+    public void validateTest() throws Exception {
         Cli aCli = new Cli();
         //aCli.projectList = (".");
         aCli.dirs.add(Path.of("."));
