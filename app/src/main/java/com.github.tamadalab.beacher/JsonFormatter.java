@@ -50,7 +50,6 @@ public class JsonFormatter implements Formatter {
         //     System.out.println("reslut is null");
         // }
         for (BuildTool aBuildTool : result) {
-            System.out.println("forOkJson");
             this.printEach(index,aBuildTool);
             index++;
         }
