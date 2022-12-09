@@ -76,10 +76,8 @@ public class Example extends Object
 
     public BuildToolDef findBuildToolsImpl(Path target, List<BuildToolDef> defs)
     {
-        if(defs.isEmpty()) System.out.println("defs is empty");
         if(extractFileName(target) != null)
         {
-            System.out.println("implIfOk");
             for(BuildToolDef def : defs)
             {
                 for(String buildfile : def.buildFiles)
@@ -92,7 +90,6 @@ public class Example extends Object
                 }
             }
         }
-        System.out.println("implnull");
         return null;
     }
 
@@ -102,18 +99,12 @@ public class Example extends Object
 
         if(target.toFile().isFile()) throw new IllegalArgumentException(); // 例外処理(IllegalArgumentException)
 
-        //System.out.println(target.toString());
         File afile = target.toFile();
         File[] targets = afile.listFiles();
-        //System.out.println(targets);
-        // if(targets.length == 0){
-        //     System.out.println("targets is empty");
-        // }
         for(File aTarget : targets)
         {
             if(aTarget.isDirectory())
             {
-                //System.out.println("ifOk");
                 // 再帰bildtoolsとbuildtoolsは合わせる
                 buildTools.addAll(findBuildTools(aTarget.toPath(), defs, no_ignore));
 
@@ -124,18 +115,16 @@ public class Example extends Object
                 BuildToolDef def = findBuildToolsImpl(aTarget.toPath(), defs);
                 if(def != null)
                 {
-                    System.out.println("elseOk");
                     buildTools.add(new BuildTool(aTarget.toPath(), def));
                 }
             }
         }
-
-        //System.out.println(buildTools);
         return buildTools;
     }
 
-    public void performEach(Path target, List<BuildToolDef> defs, boolean no_ignore, Formatter aFormatter) throws ProjectNotFound, IOException
+    public List<BuildTool> performEach(Path target, List<BuildToolDef> defs, boolean no_ignore) throws ProjectNotFound, IOException
     {
+        List<BuildTool> result = new ArrayList<BuildTool>();
         if(!target.toFile().exists())
         {
             throw new ProjectNotFound(target.toString()); // 例外処理(ProjectNotFound)
@@ -144,8 +133,7 @@ public class Example extends Object
         {
             try
             {
-                List<BuildTool> result = findBuildTools(target, defs, no_ignore);
-                aFormatter.print(target, result);
+               result = findBuildTools(target, defs, no_ignore);
             }
             catch(IllegalArgumentException error)
             { // findBuildToolsからの例外処理
@@ -153,41 +141,55 @@ public class Example extends Object
             }
             
         }
+        return result;
     }
 
-    public void perform(Cli opts) throws IOException
+    public void definitionPrint(Cli opts, List<BuildToolDef> defs, Path target, List<BuildTool> result)
     {
-        Beacher aBeacher = new Beacher();
-        List<BuildToolDef> defs = new ArrayList<>();
-
-        try
-        {
-            defs = aBeacher.construct(opts.definition, opts.append_defs); //beacherのconstructへ
-        }
-        catch(FileNotFoundException error)
-        { // beacher.javaからの例外処理
-            throw new InternalError(" buildtools.json is not Found.");
-        }
         Formatter aFormatter = new DefaultFormatter();
         aFormatter = aFormatter.build(opts.format);
         if(opts.list_defs)
         {
             aFormatter.printDefs(defs);
         }
-        List<Path> targets = this.parseTargets(opts.project_list, opts.dirs);
-        if(targets == null) return;
+        aFormatter.print(target, result);
+    }
+    public Path extractTarget(List<Path> targets)
+    {
         for(Path target : targets)
         {
-            try
-            {
-                this.performEach(target, defs, opts.no_ignore, aFormatter);
-            }
-            catch(ProjectNotFound error)
-            {
+            return target;
+        }
+        return null;
+    }
+
+    private List<BuildToolDef> readDefinitionsFile(Beacher aBeacher, Cli opts) throws IOException
+    {
+        try
+        {
+            return aBeacher.construct(opts.definition, opts.append_defs);
+        }
+        catch(FileNotFoundException error)
+        { // beacher.javaからの例外処理
+            throw new InternalError(" buildtools.json is not Found.");
+        }
+    }
+
+    public void perform(Cli opts) throws IOException
+    {
+        Beacher aBeacher = new Beacher();
+        List<BuildToolDef> defs = readDefinitionsFile(aBeacher, opts);
+        List<Path> targets = this.parseTargets(opts.project_list, opts.dirs);
+        Path target = this.extractTarget(targets);
+        List<BuildTool> result = null;
+        if (target != null) {
+            try {
+                result = this.performEach(target, defs, opts.no_ignore);
+            } catch (ProjectNotFound error) {
                 System.out.println(error.getMessage());
             }
         }
-        return;
+        this.definitionPrint(opts, defs, target, result);
     }
 
     public void run(Cli opts)
