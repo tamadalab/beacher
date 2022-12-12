@@ -9,14 +9,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BeacherTest
 {
-    @Test
-    public void testConstruct() throws Exception
-    {
-        Beacher aBeacher = new Beacher();
-        BuildToolDef aBuildToolDef = new BuildToolDef();
+    Beacher aBeacher = new Beacher();
+    BuildToolDef aBuildToolDef = new BuildToolDef();
 
-        List<BuildToolDef> constructDefs = aBeacher.construct(Path.of("../defs/buildtools_sample.json"), Path.of("../defs/buildtools_append_sample.json"));
-        
+    @Test
+    public void testMergeConstruct() throws Exception
+    { 
+        List<BuildToolDef> constructDefs = aBeacher.construct(Path.of("../defs/buildtools.json"), Path.of("../testdata/append_def.json"));
+        assertTrue(constructDefs.size() == 26);
+    }
+
+    @Test
+    public void tsetAssetConstruct() throws Exception
+    {
+        List<BuildToolDef> constructDefs = aBeacher.construct(Path.of("../defs/buildtools.json"), null);
         assertTrue(constructDefs.size() == 24);
     }
+
+    // @Test
+    // public void testAppedConstruct() throws Exception
+    // {
+    //     List<BuildToolDef> constructDefs = aBeacher.construct(null, Path.of("../testdata/append_def.json"));
+    //     assertTrue(constructDefs.size() == 2);
+    // }
 }

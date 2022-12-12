@@ -18,13 +18,15 @@ public class BuildToolDefTest
     }
 
     @Test
-    public void testDefinition() throws Exception
+    public void testParseOther() throws Exception
     {
         BuildToolDef aBuildToolDef = new BuildToolDef();
-        List<BuildToolDef> defs = aBuildToolDef.parse(Path.of("../defs/buildtools_sample.json"));
-        assertTrue(defs.size() == 12);
+        List<BuildToolDef> defs = aBuildToolDef.parse(Path.of("../testdata/append_def.json"));
+        assertTrue(defs.size() == 2);
         //assertTrue(defs.size() == 0);
     }
+
+
 
     // @Test
     // public void testParseFromAsset() throws Exception
