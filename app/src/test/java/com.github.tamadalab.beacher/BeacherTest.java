@@ -4,13 +4,19 @@ import java.nio.file.Path;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BeacherTest
 {
     Beacher aBeacher = new Beacher();
     BuildToolDef aBuildToolDef = new BuildToolDef();
+
+    // @Test
+    // public void testAssetConstruct() throws Exception
+    // {
+    //     List<BuildToolDef> constructDefs = aBeacher.construct(null,null);
+    //     assertTrue(constructDefs.size() == 24);
+    // }
 
     @Test
     public void testMergeConstruct() throws Exception
@@ -20,11 +26,12 @@ public class BeacherTest
     }
 
     @Test
-    public void tsetAssetConstruct() throws Exception
+    public void tsetDefinitionConstruct() throws Exception
     {
         List<BuildToolDef> constructDefs = aBeacher.construct(Path.of("../defs/buildtools.json"), null);
         assertTrue(constructDefs.size() == 24);
     }
+
 
     // @Test
     // public void testAppedConstruct() throws Exception
