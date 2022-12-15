@@ -154,13 +154,28 @@ public class Example extends Object
             aFormatter.print(target, result);
         }
     }
-    public Path extractTarget(List<Path> targets)
+    public void connectOutput(Path target, List<BuildToolDef> defs, Cli opts) throws IOException
+    {
+        List<BuildTool> result = null;
+        if (target != null)
+        {
+            try
+            {
+                result = this.performEach(target, defs, opts.noIgnore);
+            }
+            catch (ProjectNotFound error)
+            {
+                System.out.println(error.getMessage());
+            }
+        }
+        this.definitionPrint(opts, defs, target, result);
+    }
+    public void extractTarget(List<Path> targets, List<BuildToolDef> defs, Cli opts) throws IOException
     {
         for(Path target : targets)
         {
-            return target;
+            this.connectOutput(target, defs, opts);
         }
-        return null;
     }
 
     private List<BuildToolDef> readDefinitionsFile(Beacher aBeacher, Cli opts) throws IOException
@@ -180,20 +195,7 @@ public class Example extends Object
         Beacher aBeacher = new Beacher();
         List<BuildToolDef> defs = readDefinitionsFile(aBeacher, opts);
         List<Path> targets = this.parseTargets(opts.projectList, opts.dirs);
-        Path target = this.extractTarget(targets);
-        List<BuildTool> result = null;
-        if (target != null) 
-        {
-            try 
-            {
-                result = this.performEach(target, defs, opts.noIgnore);
-            } 
-            catch (ProjectNotFound error) 
-            {
-                System.out.println(error.getMessage());
-            }
-        }
-        this.definitionPrint(opts, defs, target, result);
+        this.extractTarget(targets, defs, opts);
     }
 
     public void run(Cli opts)

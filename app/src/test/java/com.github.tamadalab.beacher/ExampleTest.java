@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.Formatter;
 import java.util.List;
 
+import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,6 +25,15 @@ public class ExampleTest {
         Beacher beacher = new Beacher();
         var defs = beacher.construct(Path.of("../defs/buildtools.json"), null);
         example.performEach(Path.of("."), defs, false);
+    }
+    @Test
+    public void testExtractTarget() throws Exception
+    {
+        Example example = new Example();
+        Cli opts = new Cli();
+        Beacher beacher = new Beacher();
+        var defs = beacher.construct(Path.of("../defs/buildtools.json"), null);
+        example.extractTarget(List.of(Path.of(".")), defs, opts);
     }
     @Test
     public void testDefinitionPrint() throws Exception
