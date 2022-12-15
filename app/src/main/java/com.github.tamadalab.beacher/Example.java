@@ -95,7 +95,7 @@ public class Example extends Object
     {
         List<BuildTool> buildTools = new ArrayList<>();
 
-        if(target.toFile().isFile()) throw new IllegalArgumentException(); // 例外処理(IllegalArgumentException)
+        if(target.toFile().isFile()) throw new IllegalArgumentException();
 
         File afile = target.toFile();
         File[] targets = afile.listFiles();
@@ -103,13 +103,11 @@ public class Example extends Object
         {
             if(aTarget.isDirectory())
             {
-                // 再帰bildtoolsとbuildtoolsは合わせる
                 buildTools.addAll(findBuildTools(aTarget.toPath(), defs, noIgnore));
 
             }
             else
             {
-                //System.out.println("elseOk");
                 BuildToolDef def = findBuildToolsImpl(aTarget.toPath(), defs);
                 if(def != null)
                 {
@@ -126,7 +124,7 @@ public class Example extends Object
         List<BuildTool> result = new ArrayList<BuildTool>();
         if(!target.toFile().exists())
         {
-            throw new ProjectNotFound(target.toString()); // 例外処理(ProjectNotFound)
+            throw new ProjectNotFound(target.toString());
         }
         else
         {
@@ -135,7 +133,7 @@ public class Example extends Object
                result = findBuildTools(target, defs, no_ignore);
             }
             catch(IllegalArgumentException error)
-            { // findBuildToolsからの例外処理
+            {
                 System.out.println(target+": is not Directory.");
             }
             
