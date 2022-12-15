@@ -10,14 +10,6 @@ public class BeacherTest
 {
     Beacher aBeacher = new Beacher();
     BuildToolDef aBuildToolDef = new BuildToolDef();
-
-    // @Test
-    // public void testAssetConstruct() throws Exception
-    // {
-    //     List<BuildToolDef> constructDefs = aBeacher.construct(null,null);
-    //     assertTrue(constructDefs.size() == 24);
-    // }
-
     @Test
     public void testMergeConstruct() throws Exception
     { 
@@ -32,11 +24,4 @@ public class BeacherTest
         assertTrue(constructDefs.size() == 24);
     }
 
-
-    // @Test
-    // public void testAppedConstruct() throws Exception
-    // {
-    //     List<BuildToolDef> constructDefs = aBeacher.construct(null, Path.of("../testdata/append_def.json"));
-    //     assertTrue(constructDefs.size() == 2);
-    // }
 }
