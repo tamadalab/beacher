@@ -3,11 +3,13 @@
  */
 package com.github.tamadalab.beacher;
 
+import org.checkerframework.checker.units.qual.A;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.lang.Runnable;
 
@@ -28,13 +30,13 @@ public class Cli implements Runnable{
     Format format = Format.Default;
 
     @Option(names = {"-L","--list-defs"}, description = "Print the build tools' definition list")
-    boolean listDefs;
+    boolean listDefs = false;
 
     @Option(names = "--no-ignore", description = "Do not respect ignore files (.ignore, .gitignore, etc.)")
     boolean noIgnore;
 
     @Parameters(paramLabel = "PROJECTs", description = "The target project directories for beacher.")
-    List<Path> dirs;
+    List<Path> dirs = new ArrayList<>();
 
     public void run(){
         new Example().run(this);

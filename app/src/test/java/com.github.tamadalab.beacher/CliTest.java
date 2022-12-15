@@ -12,6 +12,9 @@ public class CliTest {
         List<Path> adirs = new ArrayList<>();
         adirs.add(Path.of("."));
         cli.dirs = adirs;
+        //cli.projectList = ".";
         cli.validate();
     }
 }
+
+
