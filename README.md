@@ -21,6 +21,6 @@ Json, Yaml, Xml, Defalut
   -V, --version         Print version information and exit.
 
 #### 使用例 (Examples of Use)
-java -jar app/build/libs/app.jar -f Yaml .  //'.'is project's directory
-java -jar app/build/libs/app.jar -h  //help message
-java -jar app/build/libs/app.jar -L  //print definition list
+java -jar app/build/libs/app.jar -f Yaml .    ('.'is project's directory)
+java -jar app/build/libs/app.jar -h    (help message)
+java -jar app/build/libs/app.jar -L    (print definition list)
