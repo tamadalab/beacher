@@ -1,10 +1,7 @@
 package com.github.tamadalab.beacher;
 
-import com.github.tamadalab.beacher.Format;
-import java.util.ArrayList;
 import java.util.List;
 import java.nio.file.Path;
-import java.util.EnumSet;
 
 public interface Formatter {
 
@@ -12,7 +9,7 @@ public interface Formatter {
 
     void printEach(int index, BuildTool aBuildTool);
 
-    void printHeader(Path target);
+    Path printHeader(Path target);
 
     void printFooter();
 

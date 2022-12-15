@@ -1,29 +1,29 @@
 package com.github.tamadalab.beacher;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 public class YamlFormatter implements Formatter {
 
     public void printEach(int index, BuildTool aBuildTool) {
-        return;
+
     }
     
     public void printDefFooter() {
-        return;
+
     }
 
     public void printFooter() {
-        return;
+
     }
 
-    public void printHeader(Path base) {
+    public Path printHeader(Path base) {
         System.out.println("base: " + base.toString());
+        return base;
     }
 
     public void printEach(BuildTool result) {
-        System.out.println("  - file-path: %s" + result.path.toString());
+        System.out.println("  - file-path: " + result.path.toString());
         System.out.println("    tool-name: " + result.def.name);
     }
 

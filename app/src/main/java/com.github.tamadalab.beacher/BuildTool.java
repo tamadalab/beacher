@@ -4,10 +4,9 @@ package com.github.tamadalab.beacher;
  */
 
 import java.nio.file.Path;
-import com.github.tamadalab.beacher.BuildToolDef;
 
 public class BuildTool {
-    Path path; //PathBuff
+    Path path;
     BuildToolDef def;
 
     public BuildTool(Path path, BuildToolDef def)

@@ -6,11 +6,9 @@ package com.github.tamadalab.beacher;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
@@ -19,14 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.github.tamadalab.beacher.Beacher;
-import com.github.tamadalab.beacher.BothTargetSpecified;
-import com.github.tamadalab.beacher.BuildTool;
-import com.github.tamadalab.beacher.BuildToolDef;
-import com.github.tamadalab.beacher.Cli;
-import com.github.tamadalab.beacher.Formatter;
-import com.github.tamadalab.beacher.NoProjectSpecified;
-import com.github.tamadalab.beacher.ProjectNotFound;
 import picocli.CommandLine;
 
 
@@ -101,7 +91,6 @@ public class Example extends Object
         List<BuildTool> buildTools = new ArrayList<>();
 
         if(target.toFile().isFile()) throw new IllegalArgumentException(); // 例外処理(IllegalArgumentException)
-
         //System.out.println(target.toString());
         File afile = target.toFile();
         File[] targets = afile.listFiles();
@@ -122,6 +111,8 @@ public class Example extends Object
             {
                 //System.out.println("elseOk");
                 BuildToolDef def = findBuildToolsImpl(aTarget.toPath(), defs);
+                Path p = Path.of("/code/java/file/report.txt");
+                BuildTool result = new BuildTool(p,def);
                 if(def != null)
                 {
                     System.out.println("elseOk");
