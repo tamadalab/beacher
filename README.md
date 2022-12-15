@@ -5,7 +5,7 @@
 
 Detecting the build tools in use.
 
-![btmeister_logo](https://raw.githubusercontent.com/tamada/btmeister/main/site/static/images/logo.svg)
+![btmeister_logo](https://github.com/tamadalab/beacher/blob/main/images/logo.svg)
 
 ## :speaking_head: Description
 
