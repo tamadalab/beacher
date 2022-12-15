@@ -149,6 +149,10 @@ public class Example extends Object
         {
             aFormatter.printDefs(defs);
         }
+        else
+        {
+            aFormatter.print(target, result);
+        }
     }
     public Path extractTarget(List<Path> targets)
     {
