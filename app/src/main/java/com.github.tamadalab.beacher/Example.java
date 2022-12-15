@@ -145,7 +145,7 @@ public class Example extends Object
     {
         Formatter aFormatter = new DefaultFormatter();
         aFormatter = aFormatter.build(opts.format);
-        if(opts.list_defs)
+        if(opts.listDefs)
         {
             aFormatter.printDefs(defs);
         }
@@ -164,7 +164,7 @@ public class Example extends Object
     {
         try
         {
-            return aBeacher.construct(opts.definition, opts.append_defs);
+            return aBeacher.construct(opts.definition, opts.appendDefs);
         }
         catch(FileNotFoundException error)
         { // beacher.javaからの例外処理
@@ -176,14 +176,14 @@ public class Example extends Object
     {
         Beacher aBeacher = new Beacher();
         List<BuildToolDef> defs = readDefinitionsFile(aBeacher, opts);
-        List<Path> targets = this.parseTargets(opts.project_list, opts.dirs);
+        List<Path> targets = this.parseTargets(opts.projectList, opts.dirs);
         Path target = this.extractTarget(targets);
         List<BuildTool> result = null;
         if (target != null) 
         {
             try 
             {
-                result = this.performEach(target, defs, opts.no_ignore);
+                result = this.performEach(target, defs, opts.noIgnore);
             } 
             catch (ProjectNotFound error) 
             {
