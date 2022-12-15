@@ -3,7 +3,6 @@
  */
 package com.github.tamadalab.beacher;
 
-import org.checkerframework.checker.units.qual.A;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
