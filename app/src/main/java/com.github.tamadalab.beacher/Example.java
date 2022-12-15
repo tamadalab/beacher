@@ -6,11 +6,9 @@ package com.github.tamadalab.beacher;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
@@ -93,7 +91,7 @@ public class Example extends Object
         return null;
     }
 
-    public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs,  boolean no_ignore) throws IllegalArgumentException, IOException
+    public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs,  boolean noIgnore) throws IllegalArgumentException, IOException
     {
         List<BuildTool> buildTools = new ArrayList<>();
 
@@ -106,7 +104,7 @@ public class Example extends Object
             if(aTarget.isDirectory())
             {
                 // 再帰bildtoolsとbuildtoolsは合わせる
-                buildTools.addAll(findBuildTools(aTarget.toPath(), defs, no_ignore));
+                buildTools.addAll(findBuildTools(aTarget.toPath(), defs, noIgnore));
 
             }
             else
@@ -121,6 +119,7 @@ public class Example extends Object
         }
         return buildTools;
     }
+
 
     public List<BuildTool> performEach(Path target, List<BuildToolDef> defs, boolean no_ignore) throws ProjectNotFound, IOException
     {
@@ -182,10 +181,14 @@ public class Example extends Object
         List<Path> targets = this.parseTargets(opts.project_list, opts.dirs);
         Path target = this.extractTarget(targets);
         List<BuildTool> result = null;
-        if (target != null) {
-            try {
+        if (target != null) 
+        {
+            try 
+            {
                 result = this.performEach(target, defs, opts.no_ignore);
-            } catch (ProjectNotFound error) {
+            } 
+            catch (ProjectNotFound error) 
+            {
                 System.out.println(error.getMessage());
             }
         }

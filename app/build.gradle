@@ -20,13 +20,14 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.0.1-jre'
-    
+
     implementation 'info.picocli:picocli:4.7.0'
 
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 
 }
 
@@ -45,8 +46,7 @@ task copyFile(type: Copy){
     into "$buildDir/libs"
 }
 
-tasks.named('test') {
-    // Use JUnit Platform for unit tests.
+test {
     useJUnitPlatform()
 }
 

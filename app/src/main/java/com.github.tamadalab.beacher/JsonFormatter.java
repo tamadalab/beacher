@@ -1,7 +1,6 @@
 package com.github.tamadalab.beacher;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 public class JsonFormatter implements Formatter {
@@ -15,7 +14,6 @@ public class JsonFormatter implements Formatter {
             System.out.print(",");
         }
         System.out.printf("{\"file-path\":\"%s\",\"tool-name\":\"%s\"}",result.path.toString(),result.def.name);
-        System.out.print("printEachOk");
     }
 
     public void printHeader(Path base) {
