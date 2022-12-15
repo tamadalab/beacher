@@ -14,7 +14,6 @@ public class JsonFormatter implements Formatter {
             System.out.print(",");
         }
         System.out.printf("{\"file-path\":\"%s\",\"tool-name\":\"%s\"}",result.path.toString(),result.def.name);
-        System.out.print("printEachOk");
     }
 
     public void printHeader(Path base) {
@@ -49,7 +48,6 @@ public class JsonFormatter implements Formatter {
         //     System.out.println("reslut is null");
         // }
         for (BuildTool aBuildTool : result) {
-            System.out.println("forOkJson");
             this.printEach(index,aBuildTool);
             index++;
         }

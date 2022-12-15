@@ -32,7 +32,6 @@ public class BuildToolDef
 
     public List<BuildToolDef> parseFromAsset() throws FileNotFoundException,IOException
     {
-        
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(new File("defs/buildtools.json"),new TypeReference<List<BuildToolDef>>(){});
     }

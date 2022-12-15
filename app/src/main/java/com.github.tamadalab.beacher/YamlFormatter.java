@@ -22,7 +22,7 @@ public class YamlFormatter implements Formatter {
     }
 
     public void printEach(BuildTool result) {
-        System.out.println("  - file-path: %s" + result.path.toString());
+        System.out.println("  - file-path: " + result.path.toString());
         System.out.println("    tool-name: " + result.def.name);
     }
 
