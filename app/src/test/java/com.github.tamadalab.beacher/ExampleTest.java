@@ -13,7 +13,6 @@ public class ExampleTest {
     { // defsが正しく受け取れているかどうか
         Beacher beacher = new Beacher();
         List<BuildToolDef> defs = beacher.construct(Path.of("../defs/buildtools.json"), null);
-        // assertEquals(21, defs.size());
         assertTrue(defs.size() > 0);
     }
 
