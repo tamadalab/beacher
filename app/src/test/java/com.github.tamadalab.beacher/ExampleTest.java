@@ -20,6 +20,6 @@ public class ExampleTest {
         Beacher beacher = new Beacher();
         Example example = new Example();
         var defs = beacher.construct(Path.of("../defs/buildtools.json"), null);
-        example.performEach(Path.of("."), defs, false, null);
+        example.performEach(Path.of("."), defs, false, new DefaultFormatter());
     }
 }
