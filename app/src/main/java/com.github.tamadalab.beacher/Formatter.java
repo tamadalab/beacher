@@ -9,7 +9,7 @@ public interface Formatter {
 
     void printEach(int index, BuildTool aBuildTool);
 
-    void printHeader(Path target);
+    Path printHeader(Path target);
 
     void printFooter();
 

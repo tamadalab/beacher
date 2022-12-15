@@ -6,19 +6,20 @@ import java.util.List;
 public class YamlFormatter implements Formatter {
 
     public void printEach(int index, BuildTool aBuildTool) {
-        return;
+
     }
-    
+
     public void printDefFooter() {
-        return;
+
     }
 
     public void printFooter() {
-        return;
+
     }
 
-    public void printHeader(Path base) {
+    public Path printHeader(Path base) {
         System.out.println("base: " + base.toString());
+        return base;
     }
 
     public void printEach(BuildTool result) {

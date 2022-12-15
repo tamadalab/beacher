@@ -4,24 +4,24 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class XmlFormatter implements Formatter {
-
+    public void printEach(BuildTool result) {
+        System.out.printf("<build-tool><file-path>%s</file-path><tool-name>%s</tool-name></build-tool>",
+                result.path.toString(), result.def.name);
+    }
     public void printEach(int index, BuildTool aBuildTool) {
-        return;
+
     }
 
-    public void printHeader(Path base) {
+    public Path printHeader(Path base) {
         System.out.println("<?xml version=\"1.0\"?>");
         System.out.printf("<build-tools><base>%s</base>", base.toString());
+        return base;
     }
 
     public void printFooter() {
         System.out.println("</build-tools>");
     }
 
-    public void printEach(BuildTool result) {
-        System.out.printf("<build-tool><file-path>%s</file-path><tool-name>%s</tool-name></build-tool>",
-                result.path.toString(), result.def.name);
-    }
 
     public void printDefHeader() {
         System.out.println("<?xml version=\"1.0\"?>");
