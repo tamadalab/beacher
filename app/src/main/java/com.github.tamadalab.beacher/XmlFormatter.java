@@ -1,7 +1,6 @@
 package com.github.tamadalab.beacher;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 public class XmlFormatter implements Formatter {
