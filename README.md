@@ -71,13 +71,13 @@ $ beacher --format Json . ../../AP/Java/HelloWorld/ | jq .
 ## :whale: Docker
 
 ```sh
-docker run --rm -it -v $PWD:/home/btmeister ghcr.io/tamadalab/btmeister:latest .
+docker run --rm -it -v $PWD:/home/beacher ghcr.io/tamadalab/beacher:latest .
 ```
 
 * Container OS
-    * Working directory: `/home/btmeister`
-    * entry point: `/opt/btmeister/btmeister`
-    * user: `btmeister`
+    * Working directory: `/home/beacher`
+    * entry point: `/opt/beacher/beacher`
+    * user: `beacher`
 
 
 ## :hammer_and_wrench: Related Tools
