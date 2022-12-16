@@ -100,32 +100,34 @@ A tool for detecting build tools of the projects
     -L, --list-defs                  Print the build tools<span style="color:#960050;background-color:#1e0010">&#39;</span> definition list
     -V, --version                    Print version information
 </code></pre></div><h3 id="sample-output">Sample Output</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ beacher .
-  .
-    ./app/build.gradle: Gradle
-    beacher --format Json . | jq .
-<span style="color:#f92672">[</span>
-  <span style="color:#f92672">{</span>
-    <span style="color:#e6db74">&#34;project&#34;</span>:<span style="color:#e6db74">&#34;beacher&#34;</span>,
-    <span style="color:#e6db74">&#34;path&#34;</span>:<span style="color:#e6db74">&#34;./&#34;</span>,
-    <span style="color:#e6db74">&#34;build-tools&#34;</span>:<span style="color:#f92672">[</span>
-      <span style="color:#f92672">{</span>
-        <span style="color:#e6db74">&#34;file-name&#34;</span>:<span style="color:#e6db74">&#34;Cargo.toml&#34;</span>,
-        <span style="color:#e6db74">&#34;tool-name&#34;</span>:<span style="color:#e6db74">&#34;cargo&#34;</span>
-      <span style="color:#f92672">}</span>
-    <span style="color:#f92672">]</span>
-  <span style="color:#f92672">}</span>,
-  <span style="color:#f92672">{</span>
-    <span style="color:#e6db74">&#34;project&#34;</span>:<span style="color:#e6db74">&#34;rrh&#34;</span>,
-    <span style="color:#e6db74">&#34;path&#34;</span>:<span style="color:#e6db74">&#34;/Usrs/tamadalab/go/src/github.com/tamadalab/rrh&#34;</span>,
-    <span style="color:#e6db74">&#34;build-tools&#34;</span>:<span style="color:#f92672">[</span>
-      <span style="color:#f92672">{</span>
-        <span style="color:#e6db74">&#34;file-name&#34;</span>:<span style="color:#e6db74">&#34;Makefile&#34;</span>,
-        <span style="color:#e6db74">&#34;tool-name&#34;</span>:<span style="color:#e6db74">&#34;make&#34;</span>
-      <span style="color:#f92672">}</span>
-    <span style="color:#f92672">]</span>
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ beacher . ../../AP/Java/HelloWorld/
+.
+  ./app/build.gradle: Gradle
+../../AP/Java/HelloWorld
+  ../../AP/Java/HelloWorld/build.xml: Apache Ant
+  ../../AP/Java/HelloWorld/Makefile: Make
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#34;base&#34;</span>:<span style="color:#e6db74">&#34;.&#34;</span>,
+  <span style="color:#e6db74">&#34;build-tools&#34;</span>:<span style="color:#f92672">[</span>
+    <span style="color:#f92672">{</span>
+      <span style="color:#e6db74">&#34;file-path&#34;</span>:<span style="color:#e6db74">&#34;./app/build.gradle&#34;</span>,
+      <span style="color:#e6db74">&#34;tool-name&#34;</span>:<span style="color:#e6db74">&#34;Gradle&#34;</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">]</span>
+<span style="color:#f92672">}</span>,
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#34;base&#34;</span>:<span style="color:#e6db74">&#34;../../AP/Java/HelloWorld&#34;</span>,
+  <span style="color:#e6db74">&#34;build-tools&#34;</span>:<span style="color:#f92672">[</span>
+    <span style="color:#f92672">{</span>
+      <span style="color:#e6db74">&#34;file-path&#34;</span>:<span style="color:#e6db74">&#34;../../AP/Java/HelloWorld/build.xml&#34;</span>,
+      <span style="color:#e6db74">&#34;tool-name&#34;</span>:<span style="color:#e6db74">&#34;Apache Ant&#34;</span>
+    <span style="color:#f92672">}</span>,
+    <span style="color:#f92672">{</span>
+      <span style="color:#e6db74">&#34;file-path&#34;</span>:<span style="color:#e6db74">&#34;../../AP/Java/HelloWorld/Makefile&#34;</span>,
+      <span style="color:#e6db74">&#34;tool-name&#34;</span>:<span style="color:#e6db74">&#34;Make&#34;</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">]</span>
+<span style="color:#f92672">}</span>
 </code></pre></div><h2 id="-docker">🐳 Docker</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker run --rm -it -v $PWD:/home/beacher ghcr.io/tamadalab/beacher:latest
 </code></pre></div><p>The working directory in the docker container is <code>/home/beacher</code>.
