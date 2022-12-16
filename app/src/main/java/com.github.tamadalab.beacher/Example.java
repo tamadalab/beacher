@@ -168,13 +168,14 @@ public class Example extends Object
                 System.out.println(error.getMessage());
             }
         }
-        this.definitionPrint(opts, defs, target, result);
+        if(result != null) this.definitionPrint(opts, defs, target, result);
     }
     public void extractTarget(List<Path> targets, List<BuildToolDef> defs, Cli opts) throws IOException
     {
         for(Path target : targets)
         {
-            this.connectOutput(target, defs, opts);
+            if(target.equals(Path.of("")));
+            else this.connectOutput(target, defs, opts);
         }
     }
 
