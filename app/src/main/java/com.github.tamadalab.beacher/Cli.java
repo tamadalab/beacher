@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.Runnable;
 
-@Command(name = "beacher", mixinStandardHelpOptions = true, version = "beacher 1.0",
+@Command(name = "beacher", mixinStandardHelpOptions = true, version = "beacher 1.0.0",
          description = "A tool for detecting build tools of the projects")
 public class Cli implements Runnable{
 
@@ -31,7 +31,7 @@ public class Cli implements Runnable{
     @Option(names = {"-L","--list-defs"}, description = "Print the build tools' definition list")
     boolean listDefs = false;
 
-    @Option(names = "--no-ignore", description = "Do not respect ignore files (.ignore, .gitignore, etc.)")
+    //@Option(names = "--no-ignore", description = "Do not respect ignore files (.ignore, .gitignore, etc.)")
     boolean noIgnore;
 
     @Parameters(paramLabel = "PROJECTs", description = "The target project directories for beacher.")
