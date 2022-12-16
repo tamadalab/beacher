@@ -100,10 +100,10 @@ A tool for detecting build tools of the projects
     -L, --list-defs                  Print the build tools<span style="color:#960050;background-color:#1e0010">&#39;</span> definition list
     -V, --version                    Print version information
 </code></pre></div><h3 id="sample-output">Sample Output</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ beacher . ~/go/src/github.com/tamadalab/rrh
-cargo       ./Cargo.toml
-make        /Users/tamadalab/go/src/github.com/tamadalab/rrh/Makefile
-$ beacher --format json . ~/go/src/github.com/tamadalab/rrh | jq .
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ beacher .
+  .
+    ./app/build.gradle: Gradle
+    beacher --format Json . | jq .
 <span style="color:#f92672">[</span>
   <span style="color:#f92672">{</span>
     <span style="color:#e6db74">&#34;project&#34;</span>:<span style="color:#e6db74">&#34;beacher&#34;</span>,
