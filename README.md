@@ -5,7 +5,7 @@
 
 Detecting the build tools in use.
 
-![beacher_logo](https://github.com/tamadalablab/beacher/blob/main/images/logo.svg)
+![beacher_logo](https://github.com/tamadalab/beacher/blob/main/images/logo.svg)
 
 ## :speaking_head: Description
 
