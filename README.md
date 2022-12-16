@@ -37,7 +37,35 @@ A tool for detecting build tools of the projects
 ### Sample Output
 
 ```sh
-
+$ beacher . ../../AP/Java/HelloWorld/
+.
+  ./app/build.gradle: Gradle
+../../AP/Java/HelloWorld
+  ../../AP/Java/HelloWorld/build.xml: Apache Ant
+  ../../AP/Java/HelloWorld/Makefile: Make
+$ beacher --format Json . ../../AP/Java/HelloWorld/ | jq .
+{
+  "base": ".",
+  "build-tools": [
+    {
+      "file-path": "./app/build.gradle",
+      "tool-name": "Gradle"
+    }
+  ]
+}
+{
+  "base": "../../AP/Java/HelloWorld",
+  "build-tools": [
+    {
+      "file-path": "../../AP/Java/HelloWorld/build.xml",
+      "tool-name": "Apache Ant"
+    },
+    {
+      "file-path": "../../AP/Java/HelloWorld/Makefile",
+      "tool-name": "Make"
+    }
+  ]
+}
 ```
 
 ## :whale: Docker
