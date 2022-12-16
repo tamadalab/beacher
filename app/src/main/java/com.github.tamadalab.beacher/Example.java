@@ -141,7 +141,7 @@ public class Example extends Object
         return result;
     }
 
-    public void definitionPrint(Cli opts, List<BuildToolDef> defs, Path target, List<BuildTool> result)
+    public void printer(Cli opts, List<BuildToolDef> defs, Path target, List<BuildTool> result)
     {
         Formatter aFormatter = new DefaultFormatter();
         aFormatter = aFormatter.build(opts.format);
@@ -153,6 +153,12 @@ public class Example extends Object
         {
             aFormatter.print(target, result);
         }
+    }
+    public void defsPrinter(Cli opts, List<BuildToolDef> defs)
+    {
+        Formatter aFormatter = new DefaultFormatter();
+        aFormatter = aFormatter.build(opts.format);
+        aFormatter.printDefs(defs);
     }
     public void connectOutput(Path target, List<BuildToolDef> defs, Cli opts) throws IOException
     {
@@ -168,7 +174,7 @@ public class Example extends Object
                 System.out.println(error.getMessage());
             }
         }
-        if(result != null) this.definitionPrint(opts, defs, target, result);
+        if(result != null) this.printer(opts, defs, target, result);
     }
     public void extractTarget(List<Path> targets, List<BuildToolDef> defs, Cli opts) throws IOException
     {
@@ -196,6 +202,8 @@ public class Example extends Object
         Beacher aBeacher = new Beacher();
         List<BuildToolDef> defs = readDefinitionsFile(aBeacher, opts);
         List<Path> targets = this.parseTargets(opts.projectList, opts.dirs);
+
+        if(targets.isEmpty() && opts.listDefs) this.defsPrinter(opts, defs);
         this.extractTarget(targets, defs, opts);
     }
 
