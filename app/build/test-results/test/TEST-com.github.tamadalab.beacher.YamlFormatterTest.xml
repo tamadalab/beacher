@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.github.tamadalab.beacher.YamlFormatterTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2022-12-16T04:53:11" hostname="Jin-MacBook-Air.local" time="0.013">
+  <properties/>
+  <testcase name="printTest()" classname="com.github.tamadalab.beacher.YamlFormatterTest" time="0.002"/>
+  <testcase name="printEachTest()" classname="com.github.tamadalab.beacher.YamlFormatterTest" time="0.001"/>
+  <testcase name="printDefHeaderTest()" classname="com.github.tamadalab.beacher.YamlFormatterTest" time="0.001"/>
+  <testcase name="printDefsTest()" classname="com.github.tamadalab.beacher.YamlFormatterTest" time="0.001"/>
+  <testcase name="printDefTest()" classname="com.github.tamadalab.beacher.YamlFormatterTest" time="0.001"/>
+  <testcase name="printHeaderTest()" classname="com.github.tamadalab.beacher.YamlFormatterTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

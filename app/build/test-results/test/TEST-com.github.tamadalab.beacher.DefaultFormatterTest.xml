@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.github.tamadalab.beacher.DefaultFormatterTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-12-16T04:53:10" hostname="Jin-MacBook-Air.local" time="0.018">
+  <properties/>
+  <testcase name="printTest()" classname="com.github.tamadalab.beacher.DefaultFormatterTest" time="0.005"/>
+  <testcase name="testPrintHeader()" classname="com.github.tamadalab.beacher.DefaultFormatterTest" time="0.004"/>
+  <testcase name="testPrintEach()" classname="com.github.tamadalab.beacher.DefaultFormatterTest" time="0.0"/>
+  <testcase name="testPrintDef()" classname="com.github.tamadalab.beacher.DefaultFormatterTest" time="0.0"/>
+  <testcase name="printDefsTest()" classname="com.github.tamadalab.beacher.DefaultFormatterTest" time="0.001"/>
+  <system-out><![CDATA[/code/java/file/report.txt
+  /code/java/file/report.txt: Apache Ant
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

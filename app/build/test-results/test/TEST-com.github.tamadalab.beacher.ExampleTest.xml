@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.github.tamadalab.beacher.ExampleTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-12-16T04:53:11" hostname="Jin-MacBook-Air.local" time="0.083">
+  <properties/>
+  <testcase name="testReadBuildToolDefs()" classname="com.github.tamadalab.beacher.ExampleTest" time="0.008"/>
+  <testcase name="testDefinitionPrint()" classname="com.github.tamadalab.beacher.ExampleTest" time="0.03"/>
+  <testcase name="testExtractTarget()" classname="com.github.tamadalab.beacher.ExampleTest" time="0.017"/>
+  <testcase name="testFindBuildFiles()" classname="com.github.tamadalab.beacher.ExampleTest" time="0.022"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

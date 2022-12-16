@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.github.tamadalab.beacher.XmlFormatterTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2022-12-16T04:53:11" hostname="Jin-MacBook-Air.local" time="0.019">
+  <properties/>
+  <testcase name="testPrintDefHeader()" classname="com.github.tamadalab.beacher.XmlFormatterTest" time="0.001"/>
+  <testcase name="testPrintFooter()" classname="com.github.tamadalab.beacher.XmlFormatterTest" time="0.001"/>
+  <testcase name="testPrintHeader()" classname="com.github.tamadalab.beacher.XmlFormatterTest" time="0.001"/>
+  <testcase name="testPrint()" classname="com.github.tamadalab.beacher.XmlFormatterTest" time="0.002"/>
+  <testcase name="testPrintDefs()" classname="com.github.tamadalab.beacher.XmlFormatterTest" time="0.002"/>
+  <testcase name="testPrintEach()" classname="com.github.tamadalab.beacher.XmlFormatterTest" time="0.001"/>
+  <testcase name="testPrintDef()" classname="com.github.tamadalab.beacher.XmlFormatterTest" time="0.001"/>
+  <testcase name="testPrintDefFooter()" classname="com.github.tamadalab.beacher.XmlFormatterTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
