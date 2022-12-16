@@ -17,8 +17,8 @@ This tool finds the build files from the specified directories, and identifies t
 ## :runner: Usage
 
 ```sh
-Usage: beacher [-hLV] [--no-ignore] [-@=INPUT] [--append-defs=DEFS_JSON]
-               [-d=DEFS_JSON] [-f=FORMAT] [PROJECTs...]
+Usage: beacher [-hLV] [-@=INPUT] [--append-defs=DEFS_JSON] [-d=DEFS_JSON]
+               [-f=FORMAT] [PROJECTs...]
 A tool for detecting build tools of the projects
       [PROJECTs...]     The target project directories for beacher.
   -@=INPUT              Specify the file contains project path list. If INPUT
