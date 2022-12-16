@@ -1,11 +1,11 @@
 # beacher
 
-[![Version](https://img.shields.io/badge/Version-v1.0.0-green)](https://github.com/tamada/btmeister/releases/tag/v0.5.0)
-[![License](https://img.shields.io/badge/License-Apache2.0-green)](https://github.com/tamadalab/beacher/blob/main/LICENSE)
+[![Version](https://img.shields.io/badge/Version-v1.0.0-green)](https://github.com/tamadalab/beacher/releases/tag/v0.5.0)
+[![License](https://img.shields.io/badge/License-Apache2.0-green)](https://github.com/tamadalablab/beacher/blob/main/LICENSE)
 
 Detecting the build tools in use.
 
-![btmeister_logo](https://github.com/tamadalab/beacher/blob/main/images/logo.svg)
+![beacher_logo](https://github.com/tamadalablab/beacher/blob/main/images/logo.svg)
 
 ## :speaking_head: Description
 
@@ -43,7 +43,7 @@ A tool for detecting build tools of the projects
 ## :whale: Docker
 
 ```sh
-docker run --rm -it -v $PWD:/home/btmeister ghcr.io/tamada/btmeister:latest .
+docker run --rm -it -v $PWD:/home/btmeister ghcr.io/tamadalab/btmeister:latest .
 ```
 
 * Container OS
