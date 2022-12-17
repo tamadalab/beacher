@@ -134,7 +134,7 @@ public class Example extends Object
             }
             catch(IllegalArgumentException error)
             {
-                System.out.println(target+": is not Directory.");
+                System.err.println(target+": is not Directory.");
             }
             
         }
@@ -171,7 +171,7 @@ public class Example extends Object
             }
             catch (ProjectNotFound error)
             {
-                System.out.println(error.getMessage());
+                System.err.println(error.getMessage());
             }
         }
         if(result != null) this.printer(opts, defs, target, result);
@@ -180,7 +180,10 @@ public class Example extends Object
     {
         for(Path target : targets)
         {
-            if(target.equals(Path.of("")));
+            if(target.equals(Path.of("")))
+            {
+                System.err.println("\""+target+"\": Directory is not correctly specified.");
+            }
             else this.connectOutput(target, defs, opts);
         }
     }
@@ -216,11 +219,11 @@ public class Example extends Object
         }
         catch(BothTargetSpecified error)
         { // Cliからの例外処理
-            System.out.println(error.getMessage());
+            System.err.println(error.getMessage());
         }
         catch(NoProjectSpecified error)
         { // Cliからの例外処理
-            System.out.println(error.getMessage());
+            System.err.println(error.getMessage());
         }
         catch(IOException error)
         {

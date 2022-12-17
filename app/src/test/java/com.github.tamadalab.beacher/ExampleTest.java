@@ -33,7 +33,7 @@ public class ExampleTest {
         Cli opts = new Cli();
         Beacher beacher = new Beacher();
         var defs = beacher.construct(Path.of("../defs/buildtools.json"), null);
-        example.extractTarget(List.of(Path.of(".")), defs, opts);
+        example.extractTarget(List.of(Path.of("."), Path.of("")), defs, opts);
     }
     @Test
     public void testDefinitionPrint() throws Exception
