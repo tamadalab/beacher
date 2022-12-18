@@ -24,7 +24,15 @@ public class JsonFormatterTest {
         BuildTool result = new BuildTool(path,def);
         j.printEach(index,result);
         assertEquals(",{\"file-path\":\"/code/java/file/report.txt\",\"tool-name\":\"Apache Ant\"}", out.toString());
-        //result.pathについてまだ
+    }
+
+    @Test
+    public void testPrintHeader() {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+        XmlFormatter xml = new XmlFormatter();
+        Path base = Path.of("/code/java/file/report.txt");
+        xml.printHeader(base);
     }
     @Test
     public void testPrintFooter() {
@@ -49,6 +57,20 @@ public class JsonFormatterTest {
         JsonFormatter j = new JsonFormatter();
         j.printDefFooter();
         assertEquals("]\n", out.toString());
+    }
+
+    @Test
+    public void testPrintDef(){
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+        JsonFormatter j = new JsonFormatter();
+        BuildToolDef def = new BuildToolDef();
+        ArrayList<String> buildfile = new ArrayList<>();
+        def.name = "Apache Ant";
+        def.buildFiles = new ArrayList<>();
+        def.buildFiles.add("build.xml");
+        def.buildFiles.add("ivy.xml");
+        j.printDef(def);
     }
     @Test
     public void printTest(){

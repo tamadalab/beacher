@@ -52,7 +52,6 @@ public class DefaultFormatterTest {
         def.buildFiles.add("build.xml");
         def.buildFiles.add("ivy.xml");
         defa.printDef(def);
-        //buildToolDefのコメントアウトを解除すれば可能
     }
 
     @Test
