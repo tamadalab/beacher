@@ -14,10 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class YamlFormatterTest {
     @Test
     public void printHeaderTest() {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
         YamlFormatter yaml = new YamlFormatter();
         Path base = Path.of("/code/java/file/report.txt");
-        Path sb = Path.of("/code/java/file/report.txt");
-        assertEquals(sb, yaml.printHeader(base));
+        yaml.printHeader(base);
     }
 
     @Test
@@ -32,6 +33,8 @@ public class YamlFormatterTest {
         yaml.printEach(result);
         assertEquals("  - file-path: /code/java/file/report.txt\n    tool-name: Apache Ant\n", out.toString());
     }
+
+
 
     @Test
     public void printDefHeaderTest() {
