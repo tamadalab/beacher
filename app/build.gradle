@@ -11,10 +11,16 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'jacoco'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'java'
 }
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
 
 repositories {
     // Use Maven Central for resolving dependencies.
+    gradlePluginPortal()
     mavenCentral()
 }
 
@@ -31,6 +37,13 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 
     implementation 'org.eluder.coveralls:coveralls-maven-plugin:4.3.0'
+}
+
+shadowJar {
+    archiveBaseName.set('beacher')
+    archiveClassifier.set('')
+    archiveVersion.set('1.0.0')
+    minimize()
 }
 
 jar {
