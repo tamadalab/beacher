@@ -11,8 +11,6 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'jacoco'
-    id 'jacoco-report-aggregation'
-    id 'test-report-aggregation'
     id 'com.github.kt3k.coveralls' version '2.12.0'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'java'
@@ -38,8 +36,6 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-
-    implementation 'org.eluder.coveralls:coveralls-maven-plugin:4.3.0'
 }
 
 shadowJar {
@@ -58,26 +54,20 @@ jar {
     }
 }
 
-reporting {
-    reports {
-        testCodeCoverageReport(JacocoCoverageReport) {
-            testType = TestSuiteType.UNIT_TEST
-        }
-    }
+jacoco {
+    toolVersion = '0.8.8'
 }
 
 jacocoTestReport {
     dependsOn test
-}
-
-tasks.named('check') {
-    dependsOn tasks.named('testCodeCoverageReport', JacocoReport),
-        tasks.named('testAggregateTestReport', TestReport)
+    reports {
+        xml.required = false
+        html.required = false
+    }
 }
 
 coveralls {
-    sourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
-    jacocoReportPath = "${buildDir}/reports/jacoco/testCodeCoverageReport/testCodeCoverageReport.xml"
+    jacocoReportPath 'build/reports/jacoco/test/jacocoTestReport.xml'
 }
 
 task copyFile(type: Copy){
