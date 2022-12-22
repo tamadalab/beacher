@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import java.nio.file.Path;
 import java.io.File;
+import java.net.URL;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
@@ -33,9 +34,7 @@ public class BuildToolDef
     public List<BuildToolDef> parseFromAsset() throws FileNotFoundException,IOException
     {
         ObjectMapper objectMapper = new ObjectMapper();
-        String aDirectory = "defs";
-        String afileName = aDirectory.concat(File.separator.concat("buildtools.json"));
-        return objectMapper.readValue(new File(afileName),new TypeReference<List<BuildToolDef>>(){});
+        URL aFileUrl = getClass().getClassLoader().getResource("buildtools.json");
+        return objectMapper.readValue(aFileUrl, new TypeReference<List<BuildToolDef>>(){});
     }
-
 }
