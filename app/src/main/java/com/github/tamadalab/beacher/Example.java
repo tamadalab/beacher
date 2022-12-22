@@ -17,6 +17,8 @@ import java.lang.InternalError;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import com.github.tamadalab.beacher.Beacher;
 import com.github.tamadalab.beacher.BothTargetSpecified;
@@ -78,7 +80,11 @@ public class Example extends Object {
     public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs, boolean noIgnore)
             throws IllegalArgumentException, IOException {
         List<BuildTool> buildTools = new ArrayList<>();
-
+        Config config = new Config.Builder()
+                .respectIgnoreFiles(ignoreFiles)
+                .build();
+        Stream<Entry> stream = RangerBuilder.build()// implのSimpleModel()かParallelModel()を返す
+                .stream(Path.of("dir"), config);// streamにdirとconfigを追加させる
         if (target.toFile().isFile())
             throw new IllegalArgumentException();
 
