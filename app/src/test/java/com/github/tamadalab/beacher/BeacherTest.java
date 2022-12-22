@@ -13,14 +13,14 @@ public class BeacherTest
     @Test
     public void testMergeConstruct() throws Exception
     { 
-        List<BuildToolDef> constructDefs = aBeacher.construct(Path.of("../defs/buildtools.json"), Path.of("../testdata/append_def.json"));
+        List<BuildToolDef> constructDefs = aBeacher.construct(Path.of("./src/main/resources/buildtools.json"), Path.of("../testdata/append_def.json"));
         assertTrue(constructDefs.size() == 26);
     }
 
     @Test
     public void tsetDefinitionConstruct() throws Exception
     {
-        List<BuildToolDef> constructDefs = aBeacher.construct(Path.of("../defs/buildtools.json"), null);
+        List<BuildToolDef> constructDefs = aBeacher.construct(Path.of("./src/main/resources/buildtools.json"), null);
         assertTrue(constructDefs.size() == 24);
     }
 
