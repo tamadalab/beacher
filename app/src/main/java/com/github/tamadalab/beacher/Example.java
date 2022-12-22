@@ -84,7 +84,7 @@ public class Example extends Object {
                 .respectIgnoreFiles(ignoreFiles)
                 .build();
         Stream<Entry> stream = RangerBuilder.build()// implのSimpleModel()かParallelModel()を返す
-                .stream(Path.of("dir"), config);// streamにdirとconfigを追加させる
+                .stream(Path.of("dir"), config);// streamにdirとconfigを追加させる streamは配列などの集合体
         if (target.toFile().isFile())
             throw new IllegalArgumentException();
 
