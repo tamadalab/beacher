@@ -12,7 +12,7 @@ public class BuildToolDefTest
     public void testParse() throws Exception
     {
         BuildToolDef aBuildToolDef = new BuildToolDef();
-        List<BuildToolDef> defs = aBuildToolDef.parse(Path.of("../defs/buildtools.json"));
+        List<BuildToolDef> defs = aBuildToolDef.parse(Path.of("./src/main/resources/buildtools.json"));
         assertTrue(defs.size() == 24);
     }
 
@@ -22,5 +22,13 @@ public class BuildToolDefTest
         BuildToolDef aBuildToolDef = new BuildToolDef();
         List<BuildToolDef> defs = aBuildToolDef.parse(Path.of("../testdata/append_def.json"));
         assertTrue(defs.size() == 2);
+    }
+
+    @Test
+    public void testParseFromAsset() throws Exception
+    {
+        BuildToolDef aBuildToolDef = new BuildToolDef();
+        List<BuildToolDef> defs = aBuildToolDef.parseFromAsset();
+        assertTrue(defs.size() == 24);
     }
 }
