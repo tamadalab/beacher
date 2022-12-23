@@ -15,10 +15,10 @@ import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
 import java.lang.InternalError;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import com.github.tamadalab.beacher.Beacher;
 import com.github.tamadalab.beacher.BothTargetSpecified;
@@ -28,6 +28,9 @@ import com.github.tamadalab.beacher.Cli;
 import com.github.tamadalab.beacher.Formatter;
 import com.github.tamadalab.beacher.NoProjectSpecified;
 import com.github.tamadalab.beacher.ProjectNotFound;
+import jp.cafebabe.diranger.Config;
+import jp.cafebabe.diranger.Entry;
+import jp.cafebabe.diranger.RangerBuilder;
 import picocli.CommandLine;
 
 public class Example extends Object {
@@ -80,11 +83,31 @@ public class Example extends Object {
     public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs, boolean noIgnore)
             throws IllegalArgumentException, IOException {
         List<BuildTool> buildTools = new ArrayList<>();
-        Config config = new Config.Builder()
-                .respectIgnoreFiles(ignoreFiles)
+
+
+       /* Config config = new Config.Builder()
+                .respectIgnoreFiles(noIgnore)
                 .build();
-        Stream<Entry> stream = RangerBuilder.build()// implのSimpleModel()かParallelModel()を返す
-                .stream(Path.of("dir"), config);// streamにdirとconfigを追加させる streamは配列などの集合体
+        Stream<Entry> stream = RangerBuilder.build()
+                .stream(Path.of("dir"), config);
+                */
+
+        Config config = new Config.Builder().respectIgnoreFiles(noIgnore).build();
+        Iterator<Entry> aIterator = RangerBuilder.build().iterator(Path.of("dir"), config);// streamにdirとconfigを追加させる streamは配列などの集合体
+
+        while (aIterator.hasNext()) {
+            Entry aEntry = aIterator.next();
+        }
+
+      /*  try {
+            aEntry = findBuildToolsImpl(target.getPat, defs);
+        } catch (IllegalArgumentException error) {
+            System.err.println(target + ": is not Directory.");
+        }
+
+       */
+//今回は101行目のaTragetをどうにかしないといけない
+
         if (target.toFile().isFile())
             throw new IllegalArgumentException();
 
@@ -104,14 +127,14 @@ public class Example extends Object {
         return buildTools;
     }
 
-    public List<BuildTool> performEach(Path target, List<BuildToolDef> defs, boolean no_ignore)
+    public List<BuildTool> performEach(Path target, List<BuildToolDef> defs, boolean noIgnore)
             throws ProjectNotFound, IOException {
         List<BuildTool> result = new ArrayList<BuildTool>();
         if (!target.toFile().exists()) {
             throw new ProjectNotFound(target.toString());
         } else {
             try {
-                result = findBuildTools(target, defs, no_ignore);
+                result = findBuildTools(target, defs, noIgnore);
             } catch (IllegalArgumentException error) {
                 System.err.println(target + ": is not Directory.");
             }
