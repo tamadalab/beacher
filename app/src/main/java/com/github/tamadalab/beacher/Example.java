@@ -91,25 +91,22 @@ public class Example extends Object
         return null;
     }
 
-    public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs,  boolean noIgnore) throws IllegalArgumentException, IOException
+    public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs, boolean noIgnore) throws IllegalArgumentException, IOException
     {
         List<BuildTool> buildTools = new ArrayList<>();
 
-        if(target.toFile().isFile()) throw new IllegalArgumentException();
+        if (target.toFile().isFile()) throw new IllegalArgumentException();
 
-        File afile = target.toFile();
-        File[] targets = afile.listFiles();
-        for(File aTarget : targets)
+        Config config = new Config.Builder().respectIgnoreFiles(noIgnore).build();
+        Iterator<Entry> anIterator = RangerBuilder.build().iterator(target, config);
+        while (anIterator.hasNext())
         {
-            if(aTarget.isDirectory())
-            {
-                buildTools.addAll(findBuildTools(aTarget.toPath(), defs, noIgnore));
-
-            }
-            else
+            Entry anEntry = anIterator.next();
+            File aTarget = anEntry.path().toFile();
+            if(!aTarget.isDirectory())
             {
                 BuildToolDef def = findBuildToolsImpl(aTarget.toPath(), defs);
-                if(def != null)
+                if (def != null)
                 {
                     buildTools.add(new BuildTool(aTarget.toPath(), def));
                 }
