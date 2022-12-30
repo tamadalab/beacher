@@ -61,8 +61,8 @@ jacoco {
 jacocoTestReport {
     dependsOn test
     reports {
-        xml.required = false
-        html.required = false
+        xml.required = true
+        html.required = true
     }
 }
 
