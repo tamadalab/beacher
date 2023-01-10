@@ -101,6 +101,8 @@ public class Example extends Object
     {
         List<BuildTool> buildTools = new ArrayList<>();
 
+        noIgnore = !noIgnore;
+
         if (target.toFile().isFile()) throw new IllegalArgumentException();
 
         Config config = new Config.Builder().respectIgnoreFiles(noIgnore).build();
