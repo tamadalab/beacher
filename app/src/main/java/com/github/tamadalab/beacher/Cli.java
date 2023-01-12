@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.Runnable;
 
-@Command(name = "beacher", mixinStandardHelpOptions = true, version = "beacher 1.0.0",
+@Command(name = "beacher", mixinStandardHelpOptions = true, version = "beacher 1.1.0",
          description = "A tool for detecting build tools of the projects")
 public class Cli implements Runnable{
 
