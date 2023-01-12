@@ -14,8 +14,10 @@ import java.io.FileNotFoundException;
 import java.lang.IllegalArgumentException;
 import java.lang.InternalError;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import com.github.tamadalab.beacher.Beacher;
 import com.github.tamadalab.beacher.BothTargetSpecified;
@@ -25,6 +27,10 @@ import com.github.tamadalab.beacher.Cli;
 import com.github.tamadalab.beacher.Formatter;
 import com.github.tamadalab.beacher.NoProjectSpecified;
 import com.github.tamadalab.beacher.ProjectNotFound;
+import picocli.CommandLine;
+import jp.cafebabe.diranger.Config;
+import jp.cafebabe.diranger.Entry;
+import jp.cafebabe.diranger.RangerBuilder;
 import picocli.CommandLine;
 
 
@@ -91,25 +97,24 @@ public class Example extends Object
         return null;
     }
 
-    public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs,  boolean noIgnore) throws IllegalArgumentException, IOException
+    public List<BuildTool> findBuildTools(Path target, List<BuildToolDef> defs, boolean noIgnore) throws IllegalArgumentException, IOException
     {
         List<BuildTool> buildTools = new ArrayList<>();
 
-        if(target.toFile().isFile()) throw new IllegalArgumentException();
+        noIgnore = !noIgnore;
 
-        File afile = target.toFile();
-        File[] targets = afile.listFiles();
-        for(File aTarget : targets)
+        if (target.toFile().isFile()) throw new IllegalArgumentException();
+
+        Config config = new Config.Builder().respectIgnoreFiles(noIgnore).build();
+        Iterator<Entry> anIterator = RangerBuilder.build().iterator(target, config);
+        while (anIterator.hasNext())
         {
-            if(aTarget.isDirectory())
-            {
-                buildTools.addAll(findBuildTools(aTarget.toPath(), defs, noIgnore));
-
-            }
-            else
+            Entry anEntry = anIterator.next();
+            File aTarget = anEntry.path().toFile();
+            if(!aTarget.isDirectory())
             {
                 BuildToolDef def = findBuildToolsImpl(aTarget.toPath(), defs);
-                if(def != null)
+                if (def != null)
                 {
                     buildTools.add(new BuildTool(aTarget.toPath(), def));
                 }
