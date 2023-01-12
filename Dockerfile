@@ -1,20 +1,29 @@
-FROM --platform=linux/x86_64 openjdk:17-jdk-alpine
+FROM openjdk:17-slim-bullseye as builder
 
-ARG beacher_version="1.0.0"
+RUN jlink --module-path /opt/java/openjdk/jmods --compress=2 \
+    --add-modules java.base,java.scripting,java.logging,java.desktop,java.sql,java.xml,jdk.zipfs \
+    --no-header-files --no-man-pages --output /opt/minimaljre
 
-LABEL maintainer="Tamadalab" \
-      version="${beacher_version}" \
-      description="A tool for detecting build tools of the projects. "
+FROM debian:bullseye-slim
 
-COPY ./app/build/libs/beacher-1.0.0.jar /home/beacher/beacher.jar
+ARG VERSION="1.0.0"
 
-RUN adduser beacher
+LABEL org.opencontainers.image.authors="Tamadalab" \
+      org.opencontainers.image.url="https://github.com/tamadalab/beacher" \
+      org.opencontainers.image.source="https://github.com/tamadalab/beacher/blob/Docker/Dockerfile" \
+      org.opencontainers.image.version="${VERSION}"
 
-ENV JAVA_HOME="/opt/openjdk-17"
-ENV PATH="$PATH:$JAVA_HOME/bin"
-ENV HOME="/home/beacher"
+RUN adduser --disabled-login --disabled-password --no-create-home beacher \
+    && mkdir -p /opt/beacher/libs
+COPY --from=builder /opt/minimaljre /opt/minijre
+ADD ./app/build/libs /opt/beacher/libs
+ENV BEACHER_HOME=/opt/beacher
+ENV JAVA_HOME=/opt/minijre
+ENV PATH=$JAVA_HOME/bin:$PATH
+ENV HOME=/home/beacher
+ENV BEACHER_VERSION=${VERSION}
 
 WORKDIR /home/beacher
-USER    beacher
+USER beacher
 
-ENTRYPOINT [ "java", "-jar", "beacher.jar"]
+ENTRYPOINT [ "java", "-jar", "/opt/beacher/libs/beacher-1.0.0.jar" ]
