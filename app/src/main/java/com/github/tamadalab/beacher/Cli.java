@@ -31,7 +31,7 @@ public class Cli implements Runnable{
     @Option(names = {"-L","--list-defs"}, description = "Print the build tools' definition list")
     boolean listDefs = false;
 
-    //@Option(names = "--no-ignore", description = "Do not respect ignore files (.ignore, .gitignore, etc.)")
+    @Option(names = "--no-ignore", description = "Do not respect ignore files (.ignore, .gitignore, etc.)")
     boolean noIgnore;
 
     @Parameters(paramLabel = "PROJECTs", description = "The target project directories for beacher.")

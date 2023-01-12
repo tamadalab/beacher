@@ -23,6 +23,9 @@ repositories {
     // Use Maven Central for resolving dependencies.
     gradlePluginPortal()
     mavenCentral()
+    maven {
+    url "https://tamada.github.io/maven"
+    }
 }
 
 dependencies {
@@ -36,6 +39,9 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+    implementation group: 'jp.cafebabe', name: 'diranger', version: '1.0.0-beta-3'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.6'
 }
 
 shadowJar {
@@ -61,8 +67,8 @@ jacoco {
 jacocoTestReport {
     dependsOn test
     reports {
-        xml.required = false
-        html.required = false
+        xml.required = true
+        html.required = true
     }
 }
 
