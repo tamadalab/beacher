@@ -38,10 +38,10 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    testImplementation 'org.slf4j:slf4j-simple:2.0.6'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 
     implementation group: 'jp.cafebabe', name: 'diranger', version: '1.0.0-beta-3'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.6'
 }
 
 shadowJar {
