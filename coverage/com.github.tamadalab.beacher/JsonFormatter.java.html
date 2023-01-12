@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JsonFormatter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.github.tamadalab.beacher</a> &gt; <span class="el_source">JsonFormatter.java</span></div><h1>JsonFormatter.java</h1><pre class="source lang-java linenums">package com.github.tamadalab.beacher;
+
+import java.nio.file.Path;
+import java.util.List;
+
+<span class="fc" id="L6">public class JsonFormatter implements Formatter {</span>
+
+    public void printEach(BuildTool result) {
+<span class="nc" id="L9">    }</span>
+
+    public void printEach(int index, BuildTool result) {
+<span class="fc bfc" id="L12" title="All 2 branches covered.">        if(index &gt; 0) {</span>
+<span class="fc" id="L13">            System.out.print(&quot;,&quot;);</span>
+        }
+<span class="fc" id="L15">        System.out.printf(&quot;{\&quot;file-path\&quot;:\&quot;%s\&quot;,\&quot;tool-name\&quot;:\&quot;%s\&quot;}&quot;,result.path.toString(),result.def.name);</span>
+<span class="fc" id="L16">    }</span>
+
+    public Path printHeader(Path base) {
+<span class="fc" id="L19">        System.out.printf(&quot;{\&quot;base\&quot;:\&quot;%s\&quot;,\&quot;build-tools\&quot;:[&quot;, base.toString());</span>
+<span class="fc" id="L20">        return base;</span>
+    }
+
+    public void printFooter() {
+<span class="fc" id="L24">        System.out.println(&quot;]}&quot;);</span>
+<span class="fc" id="L25">    }</span>
+
+    public void printDefHeader() {
+<span class="fc" id="L28">        System.out.print(&quot;[&quot;);</span>
+<span class="fc" id="L29">    }</span>
+
+    public void printDefFooter() {
+<span class="fc" id="L32">        System.out.println(&quot;]&quot;);</span>
+<span class="fc" id="L33">    }</span>
+
+    public void printDef(BuildToolDef def) {
+<span class="fc" id="L36">        System.out.printf(&quot;{\&quot;name\&quot;:\&quot;%s\&quot;,\&quot;url\&quot;:\&quot;%s\&quot;,\&quot;build-files\&quot;:[&quot;, def.name, def.url);</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        for (String afileName : def.buildFiles) {</span>
+<span class="fc" id="L38">            System.out.printf(&quot;\&quot;%s\&quot;&quot;, afileName);</span>
+<span class="fc" id="L39">        }</span>
+<span class="fc" id="L40">        System.out.print(&quot;]},&quot;);</span>
+<span class="fc" id="L41">    }</span>
+
+    public void print(Path target, List&lt;BuildTool&gt; result) {
+<span class="fc" id="L44">        this.printHeader(target);</span>
+<span class="fc" id="L45">        int index=0;</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        for (BuildTool aBuildTool : result) {</span>
+<span class="fc" id="L47">            this.printEach(index,aBuildTool);</span>
+<span class="fc" id="L48">            index++;</span>
+<span class="fc" id="L49">        }</span>
+<span class="fc" id="L50">        this.printFooter();</span>
+<span class="fc" id="L51">    }</span>
+
+    public void printDefs(List&lt;BuildToolDef&gt; defs) {
+<span class="fc" id="L54">        this.printDefHeader();</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        for (BuildToolDef aBuildToolDef : defs) {</span>
+<span class="fc" id="L56">            this.printDef(aBuildToolDef);</span>
+<span class="fc" id="L57">        }</span>
+<span class="fc" id="L58">        this.printDefFooter();</span>
+<span class="fc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

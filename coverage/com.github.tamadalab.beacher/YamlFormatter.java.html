@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>YamlFormatter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.github.tamadalab.beacher</a> &gt; <span class="el_source">YamlFormatter.java</span></div><h1>YamlFormatter.java</h1><pre class="source lang-java linenums">package com.github.tamadalab.beacher;
+
+import java.nio.file.Path;
+import java.util.List;
+
+<span class="fc" id="L6">public class YamlFormatter implements Formatter {</span>
+
+    public void printEach(int index, BuildTool aBuildTool) {
+
+<span class="nc" id="L10">    }</span>
+
+    public void printDefFooter() {
+
+<span class="fc" id="L14">    }</span>
+
+    public void printFooter() {
+
+<span class="fc" id="L18">    }</span>
+
+    public Path printHeader(Path base) {
+<span class="fc" id="L21">        System.out.println(&quot;base: &quot; + base.toString());</span>
+<span class="fc" id="L22">        return base;</span>
+    }
+
+    public void printEach(BuildTool result) {
+<span class="fc" id="L26">        System.out.println(&quot;  - file-path: &quot; + result.path.toString());</span>
+<span class="fc" id="L27">        System.out.println(&quot;    tool-name: &quot; + result.def.name);</span>
+<span class="fc" id="L28">    }</span>
+
+    public void printDefHeader() {
+<span class="fc" id="L31">        System.out.println(&quot;build-tools-defs&quot;);</span>
+<span class="fc" id="L32">    }</span>
+
+    public void printDef(BuildToolDef def) {
+<span class="fc" id="L35">        int index = 0;</span>
+<span class="fc" id="L36">        System.out.println(&quot;  - name: &quot; + def.name);</span>
+<span class="fc" id="L37">        System.out.println(&quot;    url: &quot; + def.url);</span>
+<span class="fc" id="L38">        System.out.println(&quot;    file-names:&quot;);</span>
+
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        for (String afileName : def.buildFiles) {</span>
+<span class="fc" id="L41">            this.printFileName(index, afileName);</span>
+<span class="fc" id="L42">            index++;</span>
+<span class="fc" id="L43">        }</span>
+<span class="fc" id="L44">    }</span>
+
+    public void printFileName(int index, String afileName) {
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (index == 0) {</span>
+<span class="fc" id="L48">            System.out.print(&quot;      -&quot;);</span>
+        } else {
+<span class="fc" id="L50">            System.out.print(&quot;       &quot;);</span>
+        }
+<span class="fc" id="L52">        System.out.println(afileName);</span>
+<span class="fc" id="L53">    }</span>
+
+    public void print(Path target, List&lt;BuildTool&gt; result) {
+<span class="fc" id="L56">        this.printHeader(target);</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        for (BuildTool aBuildTool : result) {</span>
+<span class="fc" id="L58">            this.printEach(aBuildTool);</span>
+<span class="fc" id="L59">        }</span>
+<span class="fc" id="L60">        this.printFooter();</span>
+<span class="fc" id="L61">    }</span>
+
+    public void printDefs(List&lt;BuildToolDef&gt; defs) {
+<span class="fc" id="L64">        this.printDefHeader();</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        for (BuildToolDef aBuildToolDef : defs) {</span>
+<span class="fc" id="L66">            this.printDef(aBuildToolDef);</span>
+<span class="fc" id="L67">        }</span>
+<span class="fc" id="L68">        this.printDefFooter();</span>
+<span class="fc" id="L69">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

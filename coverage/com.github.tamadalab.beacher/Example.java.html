@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Example.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.github.tamadalab.beacher</a> &gt; <span class="el_source">Example.java</span></div><h1>Example.java</h1><pre class="source lang-java linenums">package com.github.tamadalab.beacher;
+/**
+ * beacherのmain部分.
+ */
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.lang.IllegalArgumentException;
+import java.lang.InternalError;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import com.github.tamadalab.beacher.Beacher;
+import com.github.tamadalab.beacher.BothTargetSpecified;
+import com.github.tamadalab.beacher.BuildTool;
+import com.github.tamadalab.beacher.BuildToolDef;
+import com.github.tamadalab.beacher.Cli;
+import com.github.tamadalab.beacher.Formatter;
+import com.github.tamadalab.beacher.NoProjectSpecified;
+import com.github.tamadalab.beacher.ProjectNotFound;
+import picocli.CommandLine;
+
+
+<span class="fc" id="L31">public class Example extends Object</span>
+{  
+    public BufferedReader openImpl(String file) throws IOException 
+    {
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if(Objects.equals(file, &quot;-&quot;))</span>
+        {
+<span class="nc" id="L37">            return new BufferedReader(new InputStreamReader(System.in));</span>
+        }
+<span class="nc" id="L39">        return new BufferedReader(new FileReader(file));</span>
+    }
+
+    public List&lt;Path&gt; parseProjectList(String listFile) throws IOException
+    {
+<span class="nc" id="L44">        BufferedReader file = openImpl(listFile);</span>
+<span class="nc" id="L45">        List&lt;Path&gt; lines = new ArrayList&lt;Path&gt;();</span>
+<span class="nc" id="L46">        String aString = null;</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        while((aString = file.readLine()) != null)</span>
+        {
+<span class="nc" id="L49">            lines.add(Paths.get(aString));</span>
+        }
+<span class="nc" id="L51">        return lines;</span>
+    }
+    
+    public List&lt;Path&gt; parseTargets(String projectList, List&lt;Path&gt; dirs) throws IOException
+    {
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        if(projectList != null)</span>
+        {
+<span class="nc" id="L58">            return this.parseProjectList(projectList);</span>
+        }
+        else
+        {
+<span class="nc" id="L62">            return dirs;</span>
+        }
+    }
+
+    public String extractFileName(Path target)
+    {
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if(target.getFileName() != null)</span>
+        {
+<span class="fc" id="L70">            return target.getFileName().toString();</span>
+        }
+<span class="nc" id="L72">        return null;</span>
+    }
+
+    public BuildToolDef findBuildToolsImpl(Path target, List&lt;BuildToolDef&gt; defs)
+    {
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if(extractFileName(target) != null)</span>
+        {
+<span class="fc bfc" id="L79" title="All 2 branches covered.">            for(BuildToolDef def : defs)</span>
+            {
+<span class="fc bfc" id="L81" title="All 2 branches covered.">                for(String buildfile : def.buildFiles)</span>
+                {
+<span class="fc bfc" id="L83" title="All 2 branches covered.">                    if(Objects.equals(extractFileName(target), buildfile))</span>
+                    {
+                        
+<span class="fc" id="L86">                        return def;</span>
+                    }
+<span class="fc" id="L88">                }</span>
+<span class="fc" id="L89">            }</span>
+        }
+<span class="fc" id="L91">        return null;</span>
+    }
+
+    public List&lt;BuildTool&gt; findBuildTools(Path target, List&lt;BuildToolDef&gt; defs,  boolean noIgnore) throws IllegalArgumentException, IOException
+    {
+<span class="fc" id="L96">        List&lt;BuildTool&gt; buildTools = new ArrayList&lt;&gt;();</span>
+
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if(target.toFile().isFile()) throw new IllegalArgumentException();</span>
+
+<span class="fc" id="L100">        File afile = target.toFile();</span>
+<span class="fc" id="L101">        File[] targets = afile.listFiles();</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        for(File aTarget : targets)</span>
+        {
+<span class="fc bfc" id="L104" title="All 2 branches covered.">            if(aTarget.isDirectory())</span>
+            {
+<span class="fc" id="L106">                buildTools.addAll(findBuildTools(aTarget.toPath(), defs, noIgnore));</span>
+
+            }
+            else
+            {
+<span class="fc" id="L111">                BuildToolDef def = findBuildToolsImpl(aTarget.toPath(), defs);</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">                if(def != null)</span>
+                {
+<span class="fc" id="L114">                    buildTools.add(new BuildTool(aTarget.toPath(), def));</span>
+                }
+            }
+        }
+<span class="fc" id="L118">        return buildTools;</span>
+    }
+
+
+    public List&lt;BuildTool&gt; performEach(Path target, List&lt;BuildToolDef&gt; defs, boolean no_ignore) throws ProjectNotFound, IOException
+    {
+<span class="fc" id="L124">        List&lt;BuildTool&gt; result = new ArrayList&lt;BuildTool&gt;();</span>
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">        if(!target.toFile().exists())</span>
+        {
+<span class="nc" id="L127">            throw new ProjectNotFound(target.toString());</span>
+        }
+        else
+        {
+            try
+            {
+<span class="fc" id="L133">               result = findBuildTools(target, defs, no_ignore);</span>
+            }
+<span class="nc" id="L135">            catch(IllegalArgumentException error)</span>
+            {
+<span class="nc" id="L137">                System.err.println(target+&quot;: is not Directory.&quot;);</span>
+<span class="fc" id="L138">            }</span>
+            
+        }
+<span class="fc" id="L141">        return result;</span>
+    }
+
+    public void printer(Cli opts, List&lt;BuildToolDef&gt; defs, Path target, List&lt;BuildTool&gt; result)
+    {
+<span class="fc" id="L146">        Formatter aFormatter = new DefaultFormatter();</span>
+<span class="fc" id="L147">        aFormatter = aFormatter.build(opts.format);</span>
+<span class="pc bpc" id="L148" title="1 of 2 branches missed.">        if(opts.listDefs)</span>
+        {
+<span class="nc" id="L150">            aFormatter.printDefs(defs);</span>
+        }
+        else
+        {
+<span class="fc" id="L154">            aFormatter.print(target, result);</span>
+        }
+<span class="fc" id="L156">    }</span>
+    public void defsPrinter(Cli opts, List&lt;BuildToolDef&gt; defs)
+    {
+<span class="nc" id="L159">        Formatter aFormatter = new DefaultFormatter();</span>
+<span class="nc" id="L160">        aFormatter = aFormatter.build(opts.format);</span>
+<span class="nc" id="L161">        aFormatter.printDefs(defs);</span>
+<span class="nc" id="L162">    }</span>
+    public void connectOutput(Path target, List&lt;BuildToolDef&gt; defs, Cli opts) throws IOException
+    {
+<span class="fc" id="L165">        List&lt;BuildTool&gt; result = null;</span>
+<span class="pc bpc" id="L166" title="1 of 2 branches missed.">        if (target != null)</span>
+        {
+            try
+            {
+<span class="fc" id="L170">                result = this.performEach(target, defs, opts.noIgnore);</span>
+            }
+<span class="nc" id="L172">            catch (ProjectNotFound error)</span>
+            {
+<span class="nc" id="L174">                System.err.println(error.getMessage());</span>
+<span class="fc" id="L175">            }</span>
+        }
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">        if(result != null) this.printer(opts, defs, target, result);</span>
+<span class="fc" id="L178">    }</span>
+    public void extractTarget(List&lt;Path&gt; targets, List&lt;BuildToolDef&gt; defs, Cli opts) throws IOException
+    {
+<span class="fc bfc" id="L181" title="All 2 branches covered.">        for(Path target : targets)</span>
+        {
+<span class="fc bfc" id="L183" title="All 2 branches covered.">            if(target.equals(Path.of(&quot;&quot;)))</span>
+            {
+<span class="fc" id="L185">                System.err.println(&quot;\&quot;&quot;+target+&quot;\&quot;: Directory is not correctly specified.&quot;);</span>
+            }
+<span class="fc" id="L187">            else this.connectOutput(target, defs, opts);</span>
+<span class="fc" id="L188">        }</span>
+<span class="fc" id="L189">    }</span>
+
+    private List&lt;BuildToolDef&gt; readDefinitionsFile(Beacher aBeacher, Cli opts) throws IOException
+    {
+        try
+        {
+<span class="nc" id="L195">            return aBeacher.construct(opts.definition, opts.appendDefs);</span>
+        }
+<span class="nc" id="L197">        catch(FileNotFoundException error)</span>
+        { // beacher.javaからの例外処理
+<span class="nc" id="L199">            throw new InternalError(&quot; buildtools.json is not Found.&quot;);</span>
+        }
+    }
+
+    public void perform(Cli opts) throws IOException
+    {
+<span class="nc" id="L205">        Beacher aBeacher = new Beacher();</span>
+<span class="nc" id="L206">        List&lt;BuildToolDef&gt; defs = readDefinitionsFile(aBeacher, opts);</span>
+<span class="nc" id="L207">        List&lt;Path&gt; targets = this.parseTargets(opts.projectList, opts.dirs);</span>
+
+<span class="nc bnc" id="L209" title="All 4 branches missed.">        if(targets.isEmpty() &amp;&amp; opts.listDefs) this.defsPrinter(opts, defs);</span>
+<span class="nc" id="L210">        this.extractTarget(targets, defs, opts);</span>
+<span class="nc" id="L211">    }</span>
+
+    public void run(Cli opts)
+    {
+        try
+        {
+<span class="nc" id="L217">            opts.validate();</span>
+<span class="nc" id="L218">            this.perform(opts);</span>
+        }
+<span class="nc" id="L220">        catch(BothTargetSpecified error)</span>
+        { // Cliからの例外処理
+<span class="nc" id="L222">            System.err.println(error.getMessage());</span>
+        }
+<span class="nc" id="L224">        catch(NoProjectSpecified error)</span>
+        { // Cliからの例外処理
+<span class="nc" id="L226">            System.err.println(error.getMessage());</span>
+        }
+<span class="nc" id="L228">        catch(IOException error)</span>
+        {
+<span class="nc" id="L230">            error.printStackTrace();</span>
+<span class="nc" id="L231">        }</span>
+<span class="nc" id="L232">    }</span>
+
+    public static void main(String... arguments) throws IOException
+    {
+<span class="nc" id="L236">        int exitCode = new CommandLine(new Cli()).execute(arguments);</span>
+<span class="nc" id="L237">        System.exit(exitCode);</span>
+
+<span class="nc" id="L239">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

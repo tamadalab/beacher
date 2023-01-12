@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Cli.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.github.tamadalab.beacher</a> &gt; <span class="el_source">Cli.java</span></div><h1>Cli.java</h1><pre class="source lang-java linenums">/*
+ * beacherのコマンドラインのオプションのためのソースコードです。
+ */
+package com.github.tamadalab.beacher;
+
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.lang.Runnable;
+
+@Command(name = &quot;beacher&quot;, mixinStandardHelpOptions = true, version = &quot;beacher 1.0.0&quot;,
+         description = &quot;A tool for detecting build tools of the projects&quot;)
+<span class="fc" id="L17">public class Cli implements Runnable{</span>
+
+    @Option(names = &quot;-@&quot;, paramLabel = &quot;INPUT&quot;, description = &quot;Specify the file contains project path list. If INPUT is dash ('-'), read from STDIN.&quot;)
+    String projectList;
+
+    @Option(names = &quot;--append-defs&quot;, paramLabel = &quot;DEFS_JSON&quot;, description = &quot;Specify the additional definitions of the build tools.&quot;)
+    Path appendDefs;
+
+    @Option(names = {&quot;-d&quot;,&quot;--definition&quot;}, paramLabel = &quot;DEFS_JSON&quot;, description = &quot;Specify the definition of the build tools.&quot;)
+    Path definition;
+
+<span class="fc" id="L28">    @Option(names = {&quot;-f&quot;,&quot;--format&quot;}, paramLabel = &quot;FORMAT&quot;, description = &quot;Specify the output format [default: Default] [possible values: Default, Json, Xml, Yaml]&quot;)</span>
+    Format format = Format.Default;
+
+<span class="fc" id="L31">    @Option(names = {&quot;-L&quot;,&quot;--list-defs&quot;}, description = &quot;Print the build tools' definition list&quot;)</span>
+    boolean listDefs = false;
+
+    //@Option(names = &quot;--no-ignore&quot;, description = &quot;Do not respect ignore files (.ignore, .gitignore, etc.)&quot;)
+    boolean noIgnore;
+
+<span class="fc" id="L37">    @Parameters(paramLabel = &quot;PROJECTs&quot;, description = &quot;The target project directories for beacher.&quot;)</span>
+    List&lt;Path&gt; dirs = new ArrayList&lt;&gt;();
+
+    public void run(){
+<span class="nc" id="L41">        new Example().run(this);</span>
+<span class="nc" id="L42">    }</span>
+
+    public void validate() throws BothTargetSpecified, NoProjectSpecified{
+<span class="pc bpc" id="L45" title="3 of 4 branches missed.">        if(projectList != null &amp;&amp; !dirs.isEmpty()){</span>
+<span class="nc" id="L46">            throw new BothTargetSpecified();</span>
+        }
+<span class="pc bpc" id="L48" title="3 of 6 branches missed.">        else if(!listDefs &amp;&amp; projectList == null &amp;&amp; dirs.isEmpty()){</span>
+<span class="nc" id="L49">            throw new NoProjectSpecified();</span>
+        }
+<span class="fc" id="L51">        return;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

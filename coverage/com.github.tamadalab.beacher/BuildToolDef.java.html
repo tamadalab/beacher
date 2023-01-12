@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BuildToolDef.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.github.tamadalab.beacher</a> &gt; <span class="el_source">BuildToolDef.java</span></div><h1>BuildToolDef.java</h1><pre class="source lang-java linenums">package com.github.tamadalab.beacher;
+
+import java.util.List;
+
+import javax.imageio.IIOException;
+
+import java.util.ArrayList;
+
+import java.nio.file.Path;
+import java.io.File;
+import java.net.URL;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+<span class="fc" id="L19">public class BuildToolDef</span>
+{
+    public String name;
+
+    @JsonProperty(&quot;build-files&quot;)
+    public List&lt;String&gt; buildFiles;
+
+    public String url;
+
+    public List&lt;BuildToolDef&gt; parse(Path path) throws IOException
+    {
+<span class="fc" id="L30">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L31">        return objectMapper.readValue(new File(path.toString()), new TypeReference&lt;List&lt;BuildToolDef&gt;&gt;(){});</span>
+    }
+
+    public List&lt;BuildToolDef&gt; parseFromAsset() throws FileNotFoundException,IOException
+    {
+<span class="fc" id="L36">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L37">        URL aFileUrl = getClass().getClassLoader().getResource(&quot;buildtools.json&quot;);</span>
+<span class="fc" id="L38">        return objectMapper.readValue(aFileUrl, new TypeReference&lt;List&lt;BuildToolDef&gt;&gt;(){});</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
