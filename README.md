@@ -1,6 +1,6 @@
 # beacher
 
-[![Version](https://img.shields.io/badge/Version-v1.0.0-green)](https://github.com/tamadalab/beacher/releases/tag/v0.5.0)
+[![Version](https://img.shields.io/badge/Version-v1.1.0-green)](https://github.com/tamadalab/beacher/releases/tag/v0.5.0)
 [![License](https://img.shields.io/badge/License-Apache2.0-green)](https://github.com/tamadalablab/beacher/blob/main/LICENSE)
 
 Detecting the build tools in use.
@@ -17,7 +17,7 @@ This tool finds the build files from the specified directories, and identifies t
 ## :runner: Usage
 
 ```sh
-Usage: beacher [-hLV] [-@=INPUT] [--append-defs=DEFS_JSON] [-d=DEFS_JSON]
+Usage: java -jar beacher-1.1.0.jar [-hLV] [-@=INPUT] [--append-defs=DEFS_JSON] [-d=DEFS_JSON]
                [-f=FORMAT] [PROJECTs...]
 A tool for detecting build tools of the projects
       [PROJECTs...]     The target project directories for beacher.
@@ -37,13 +37,13 @@ A tool for detecting build tools of the projects
 ### Sample Output
 
 ```sh
-$ beacher . ../../AP/Java/HelloWorld/
+$ java -jar beacher-1.1.0.jar . ../../AP/Java/HelloWorld/
 .
   ./app/build.gradle: Gradle
 ../../AP/Java/HelloWorld
   ../../AP/Java/HelloWorld/build.xml: Apache Ant
   ../../AP/Java/HelloWorld/Makefile: Make
-$ beacher --format Json . ../../AP/Java/HelloWorld/ | jq .
+$ java -jar beacher-1.1.0.jar --format Json . ../../AP/Java/HelloWorld/ | jq .
 {
   "base": ".",
   "build-tools": [
@@ -76,7 +76,6 @@ docker run --rm -it -v $PWD:/home/beacher ghcr.io/tamadalab/beacher:latest .
 
 * Container OS
     * Working directory: `/home/beacher`
-    * entry point: `/opt/beacher/beacher`
     * user: `beacher`
 
 
