@@ -33,6 +33,7 @@ A tool for detecting build tools of the projects
                           values: Default, Json, Xml, Yaml]
   -h, --help            Show this help message and exit.
   -L, --list-defs       Print the build tools' definition list
+      --no-ignore       Do not respect ignore files (.ignore, .gitignore, etc.)
   -V, --version         Print version information and exit.
 ```
 
