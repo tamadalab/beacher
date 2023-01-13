@@ -86,7 +86,7 @@
   <h1>🏃‍♂️ Usage</h1>
   <h2 id="cli">CLI</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">
-USAGE: java -jar beacher-1.0.0.jar <span style="color:#f92672">[</span>-hLV<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-@=INPUT<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--append-defs=DEFS_JSON<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-d=DEFS_JSON<span style="color:#f92672">]</span>
+USAGE: java -jar beacher-1.1.0.jar <span style="color:#f92672">[</span>-hLV<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-@=INPUT<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--append-defs=DEFS_JSON<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-d=DEFS_JSON<span style="color:#f92672">]</span>
                <span style="color:#f92672">[</span>-f=FORMAT<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>PROJECTs...<span style="color:#f92672">]</span>
 A tool for detecting build tools of the projects
     &lt;PROJECTs&gt;...    The target project directories <span style="color:#66d9ef">for</span> beacher.
@@ -100,13 +100,13 @@ A tool for detecting build tools of the projects
     -L, --list-defs                  Print the build tools<span style="color:#960050;background-color:#1e0010">&#39;</span> definition list
     -V, --version                    Print version information
 </code></pre></div><h3 id="sample-output">Sample Output</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ java -jar beacher-1.0.0.jar . ../../AP/Java/HelloWorld/
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ java -jar beacher-1.1.0.jar . ../../AP/Java/HelloWorld/
 .
   ./app/build.gradle: Gradle
 ../../AP/Java/HelloWorld
   ../../AP/Java/HelloWorld/build.xml: Apache Ant
   ../../AP/Java/HelloWorld/Makefile: Make
-$ java -jar beacher-1.0.0.jar --format json . ../../AP/Java/HelloWorld/ | jq .
+$ java -jar beacher-1.1.0.jar --format json . ../../AP/Java/HelloWorld/ | jq .
 <span style="color:#f92672">{</span>
   <span style="color:#e6db74">&#34;base&#34;</span>:<span style="color:#e6db74">&#34;.&#34;</span>,
   <span style="color:#e6db74">&#34;build-tools&#34;</span>:<span style="color:#f92672">[</span>
@@ -135,7 +135,7 @@ $ java -jar beacher-1.0.0.jar --format json . ../../AP/Java/HelloWorld/ | jq .
 The target project should be on the directory with <code>-v</code> flag of docker.</p>
 <h3 id="available-versions">Available versions</h3>
 <ul>
-<li><code>1.0.0</code>, <code>latest</code></li>
+<li><code>1.1.0</code>, <code>latest</code></li>
 </ul>
 
 
