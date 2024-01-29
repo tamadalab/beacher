@@ -4,7 +4,7 @@
 [![Version](https://img.shields.io/badge/Version-v1.1.0-green)](https://github.com/tamadalab/beacher/releases/tag/v1.1.0)
 [![License](https://img.shields.io/badge/License-Apache2.0-green)](https://github.com/tamadalab/beacher/blob/main/LICENSE)
 [![Docker](https://img.shields.io/badge/Docker-v1.1.0-green?logo=docker)](https://github.com/tamadalab/beacher/pkgs/container/beacher/)
-![Github actions](https://img.shields.io/badge/xxx-passing-green?logo=github)
+![Github actions](https://img.shields.io/badge/beacher-passing-green?logo=github)
 ![code cov](https://img.shields.io/badge/codecov-100%25-green?logo=codecov)
 ![gitter](https://img.shields.io/badge/chat-on__gitter-skyblue)
 ![quality gate](https://img.shields.io/badge/quality__gate-passing-green?logo=sonarcloud)
